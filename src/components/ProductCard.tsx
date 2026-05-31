@@ -142,10 +142,10 @@ const ProductCard = React.memo(({ product, useTransition = false }: ProductCardP
               )}
             </div>
             
-            {product.original_price && (
+            {product.original_price && product.original_price > product.price && (
               <div className="inline-flex items-center gap-1 bg-accent-mint/10 text-accent-mint text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded">
                 <Zap className="w-3 h-3" />
-                Get it for {formatPrice(product.price * 0.8)}
+                Save {Math.round(((product.original_price - product.price) / product.original_price) * 100)}%
               </div>
             )}
           </div>

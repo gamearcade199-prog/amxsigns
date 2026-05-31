@@ -22,7 +22,7 @@ export default async function AdminDashboard() {
     supabase.from('orders').select('*', { count: 'exact', head: true }),
     supabase.from('custom_designs').select('*', { count: 'exact', head: true }),
     supabase.from('orders').select('*').order('created_at', { ascending: false }).limit(5),
-    supabase.from('orders').select('total_amount')
+    supabase.from('orders').select('total_amount, customer_email')
   ])
 
   const orderCount = orderCountRes.count
@@ -31,12 +31,13 @@ export default async function AdminDashboard() {
   const salesData = salesDataRes.data
   
   const totalRevenue = salesData?.reduce((acc, curr) => acc + curr.total_amount, 0) || 0;
+  const uniqueCustomers = salesData ? new Set(salesData.map(o => o.customer_email)).size : 0;
 
   const stats = [
     { label: 'Total Revenue', value: formatPrice(totalRevenue), icon: TrendingUp, color: 'text-primary' },
     { label: 'Orders', value: orderCount || 0, icon: ShoppingBag, color: 'text-blue-500' },
     { label: 'Quotes', value: quoteCount || 0, icon: MessageSquare, color: 'text-purple-500' },
-    { label: 'Customers', value: orderCount ? Math.floor(orderCount * 0.8) : 0, icon: Users, color: 'text-green-500' },
+    { label: 'Customers', value: uniqueCustomers, icon: Users, color: 'text-green-500' },
   ]
 
   return (

@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: ProductPageProps) {
     description: metaDescription,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      type: 'product',
+      type: 'website',
       title: `${product.title} LED Neon Sign | AMX Signs`,
       description: metaDescription,
       url: canonicalUrl,
