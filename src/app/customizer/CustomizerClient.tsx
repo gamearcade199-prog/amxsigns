@@ -35,11 +35,6 @@ const CUSTOM_PRODUCT = {
   },
 };
 
-const BG_OPTIONS = [
-  { id: "black",   label: "Black",   bg: "#000000" },
-  { id: "charcoal",label: "Charcoal",bg: "#111111" },
-  { id: "navy",    label: "Navy",    bg: "#050A18" },
-];
 
 export default function CustomizerClient() {
   const [text, setText] = useState("YOUR TEXT");
@@ -47,7 +42,7 @@ export default function CustomizerClient() {
   const [selectedColor, setSelectedColor] = useState<NeonColor>(NEON_COLORS[4]); // green default
   const [selectedSize, setSelectedSize] = useState(SIZE_OPTIONS[0]);
   const [selectedBacking, setSelectedBacking] = useState<BackingId>("cut-to-shape");
-  const [previewBg, setPreviewBg] = useState(BG_OPTIONS[0]);
+
   const [added, setAdded] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
   const openCart = useCartStore((s) => s.openCart);
@@ -56,7 +51,7 @@ export default function CustomizerClient() {
   const price = calcPrice(text, selectedSize.id, selectedBacking);
   const dimensions = calcDimensions(text, selectedSize.id);
   const charCount = text.replace(/\s/g, "").length;
-  const MAX_CHARS = 30;
+  const MAX_CHARS = 40;
 
   const handleAddToCart = useCallback(() => {
     if (!text.trim() || charCount === 0) return;
@@ -82,17 +77,26 @@ export default function CustomizerClient() {
     }, 800);
   }, [text, selectedSize, price, selectedFont, selectedColor, selectedBacking, dimensions, addItem, openCart, charCount]);
 
+  const isWhite = selectedColor.id === "white";
   const neonTextStyle: React.CSSProperties = {
     fontFamily: selectedFont.fontFamily,
     color: "#fff",
-    textShadow: [
-      `0 0 1px #fff`,
-      `0 0 3px #fff`,
-      `0 0 6px #fff`,
-      `0 0 12px ${selectedColor.hex}`,
-      `0 0 22px ${selectedColor.hex}`,
-      `0 0 38px ${selectedColor.glow}`,
-    ].join(", "),
+    textShadow: isWhite
+      ? [
+          `0 0 1px #fff`,
+          `0 0 3px #fff`,
+          `0 0 8px rgba(255, 255, 255, 0.6)`,
+          `0 0 16px rgba(255, 255, 255, 0.45)`,
+          `0 0 24px rgba(255, 255, 255, 0.25)`,
+        ].join(", ")
+      : [
+          `0 0 1px #fff`,
+          `0 0 3px #fff`,
+          `0 0 6px #fff`,
+          `0 0 12px ${selectedColor.hex}`,
+          `0 0 22px ${selectedColor.hex}`,
+          `0 0 38px ${selectedColor.glow}`,
+        ].join(", "),
   };
 
   return (
@@ -115,7 +119,7 @@ export default function CustomizerClient() {
             {/* Preview canvas */}
             <div
               className="relative rounded-2xl border border-white/10 overflow-hidden flex items-center justify-center"
-              style={{ background: previewBg.bg, minHeight: typeof window !== 'undefined' && window.innerWidth < 768 ? 220 : 320 }}
+              style={{ background: "#000000", minHeight: typeof window !== 'undefined' && window.innerWidth < 768 ? 220 : 320 }}
             >
               {/* Scanline overlay for atmosphere */}
               <div
@@ -127,8 +131,8 @@ export default function CustomizerClient() {
               <div className="relative z-10 flex items-center justify-center py-5 md:py-14 px-6 md:px-8">
                 {text.trim() ? (
                   <p
-                    className="text-center break-words leading-none select-none transition-all duration-300"
-                    style={{ ...neonTextStyle, fontSize: "clamp(1.8rem, 8vw, 5.5rem)", maxWidth: "100%" }}
+                    className="text-center break-words leading-[1.2] select-none transition-all duration-300"
+                    style={{ ...neonTextStyle, fontSize: "clamp(1.8rem, 8vw, 5.5rem)", maxWidth: "100%", whiteSpace: "pre-wrap" }}
                   >
                     {text}
                   </p>
@@ -147,25 +151,7 @@ export default function CustomizerClient() {
               <span className="text-sm font-mono font-bold text-white">{dimensions}</span>
             </div>
 
-            {/* Background toggle (Desktop only) */}
-            <div className="hidden md:flex items-center gap-3">
-              <span className="text-xs font-mono text-text-muted uppercase tracking-widest shrink-0">Background:</span>
-              <div className="flex gap-2">
-                {BG_OPTIONS.map((bg) => (
-                  <button
-                    key={bg.id}
-                    onClick={() => setPreviewBg(bg)}
-                    className={`text-xs font-mono px-3 py-1.5 rounded-full border transition-all ${
-                      previewBg.id === bg.id
-                        ? "border-primary text-primary bg-primary/10"
-                        : "border-white/15 text-text-muted hover:border-white/30"
-                    }`}
-                  >
-                    {bg.label}
-                  </button>
-                ))}
-              </div>
-            </div>
+
           </div>
 
           {/* ─── RIGHT: Controls ─── */}
@@ -256,20 +242,24 @@ export default function CustomizerClient() {
             <section className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 space-y-4">
               <h2 className="text-xs font-mono uppercase tracking-[0.3em] text-primary">Choose Size</h2>
               <div className="grid grid-cols-3 gap-3">
-                {SIZE_OPTIONS.map((size) => (
-                  <button
-                    key={size.id}
-                    onClick={() => setSelectedSize(size)}
-                    className={`py-3 px-2 rounded-xl border text-center transition-all ${
-                      selectedSize.id === size.id
-                        ? "border-primary bg-primary/10 text-primary"
-                        : "border-white/10 text-white/70 hover:border-white/30 bg-black/30"
-                    }`}
-                  >
-                    <span className="block text-sm font-black uppercase tracking-tight">{size.label}</span>
-                    <span className="block text-[10px] font-mono text-text-muted mt-0.5">{size.heightInch}" height</span>
-                  </button>
-                ))}
+                {SIZE_OPTIONS.map((size) => {
+                  const lines = text.trim().split("\n");
+                  const currentHeight = size.heightInch + (lines.length - 1) * 10;
+                  return (
+                    <button
+                      key={size.id}
+                      onClick={() => setSelectedSize(size)}
+                      className={`py-3 px-2 rounded-xl border text-center transition-all ${
+                        selectedSize.id === size.id
+                          ? "border-primary bg-primary/10 text-primary"
+                          : "border-white/10 text-white/70 hover:border-white/30 bg-black/30"
+                      }`}
+                    >
+                      <span className="block text-sm font-black uppercase tracking-tight">{size.label}</span>
+                      <span className="block text-[10px] font-mono text-text-muted mt-0.5">{currentHeight}" height</span>
+                    </button>
+                  );
+                })}
               </div>
             </section>
 
@@ -313,43 +303,53 @@ export default function CustomizerClient() {
             </section>
 
             {/* 6. Price + CTA (Desktop) */}
-            <div className="hidden xl:block bg-[#0d0d0d] border border-white/15 rounded-2xl p-6 space-y-4">
-              <div className="flex items-end justify-between">
+            <div className="hidden xl:block bg-[#0d0d0d] border border-white/10 rounded-2xl overflow-hidden">
+              {/* Price row */}
+              <div className="px-6 pt-6 pb-4 flex items-center justify-between border-b border-white/[0.07]">
                 <div>
-                  <p className="text-[11px] font-mono text-text-muted uppercase tracking-widest">Total Price</p>
+                  <p className="text-[9px] font-mono text-text-muted uppercase tracking-[0.25em] mb-2">Total Price</p>
                   <AnimatePresence mode="wait">
                     <motion.p
                       key={price}
                       initial={{ opacity: 0, y: -8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 8 }}
-                      className="text-3xl font-black font-mono"
-                      style={{ color: selectedColor.hex, textShadow: `0 0 20px ${selectedColor.glow}` }}
+                      className="text-2xl font-black font-mono text-white"
                     >
                       {formatPrice(price)}
                     </motion.p>
                   </AnimatePresence>
                 </div>
-                <div className="text-right">
-                  <p className="text-[11px] font-mono text-text-muted">{selectedSize.label} · {selectedBacking === "cut-to-shape" ? "Cut to Shape" : "Rectangle"}</p>
-                  <p className="text-[11px] font-mono text-text-muted">{dimensions}</p>
+                <div className="flex flex-col items-end gap-1.5">
+                  <span className="text-[10px] font-black uppercase tracking-widest bg-white/5 border border-white/10 px-3 py-1 rounded-full">
+                    {selectedSize.label}
+                  </span>
+                  <span className="text-[10px] font-mono text-text-muted">
+                    {selectedBacking === "cut-to-shape" ? "Cut to Shape" : "Rectangle Backing"}
+                  </span>
+                  <span className="text-[11px] font-mono font-bold text-white/70">
+                    {dimensions}
+                  </span>
                 </div>
               </div>
 
-              <button
-                onClick={handleAddToCart}
-                disabled={!text.trim() || charCount === 0}
-                className={`w-full py-4 rounded-full font-black text-sm tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all duration-300 ${
-                  added
-                    ? "bg-green-400 text-black scale-[0.98]"
-                    : charCount === 0
-                    ? "bg-white/10 text-text-muted cursor-not-allowed"
-                    : "bg-primary text-black hover:scale-[1.02] active:scale-95 neon-bloom-lime"
-                }`}
-              >
-                <ShoppingCart className="w-4 h-4" />
-                {added ? "Added to Cart ✓" : "Add to Cart"}
-              </button>
+              {/* CTA */}
+              <div className="px-6 py-4">
+                <button
+                  onClick={handleAddToCart}
+                  disabled={!text.trim() || charCount === 0}
+                  className={`w-full py-4 rounded-full font-black text-sm tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all duration-300 ${
+                    added
+                      ? "bg-green-400 text-black scale-[0.98]"
+                      : charCount === 0
+                      ? "bg-white/10 text-text-muted cursor-not-allowed"
+                      : "bg-primary text-black hover:scale-[1.02] active:scale-95 neon-bloom-lime"
+                  }`}
+                >
+                  <ShoppingCart className="w-4 h-4" />
+                  {added ? "Added to Cart ✓" : "Add to Cart"}
+                </button>
+              </div>
             </div>
 
           </div>
@@ -357,18 +357,20 @@ export default function CustomizerClient() {
       </div>
 
       {/* ─── MOBILE STICKY BAR ─── */}
-      <div className="xl:hidden fixed bottom-0 left-0 w-full z-40 bg-black/90 backdrop-blur-xl border-t border-white/10 p-4 pb-safe-bottom animate-slide-up">
-        <div className="flex items-center justify-between gap-4 max-w-md mx-auto">
-          <div className="flex flex-col">
-            <span className="text-[9px] font-mono text-text-muted uppercase tracking-widest">{dimensions}</span>
-            <span className="text-xl font-black font-mono" style={{ color: selectedColor.hex }}>
+      <div className="xl:hidden fixed bottom-0 left-0 w-full z-40 bg-black/95 backdrop-blur-xl border-t border-white/10 p-4 pb-safe-bottom animate-slide-up">
+        <div className="flex items-center gap-4 max-w-md mx-auto">
+          {/* Price + dims */}
+          <div className="flex flex-col min-w-0">
+            <span className="text-[9px] font-mono text-text-muted uppercase tracking-widest">{selectedSize.label} · {dimensions}</span>
+            <span className="text-2xl font-black font-mono leading-tight" style={{ color: selectedColor.hex }}>
               {formatPrice(price)}
             </span>
           </div>
+          {/* CTA */}
           <button
             onClick={handleAddToCart}
             disabled={!text.trim() || charCount === 0}
-            className={`flex-1 py-3.5 rounded-full font-black text-[10px] tracking-widest uppercase flex items-center justify-center gap-2 transition-all ${
+            className={`flex-1 py-4 rounded-full font-black text-xs tracking-widest uppercase flex items-center justify-center gap-2 transition-all ${
               added
                 ? "bg-green-400 text-black"
                 : charCount === 0

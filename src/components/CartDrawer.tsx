@@ -9,7 +9,7 @@ import { formatPrice } from "@/lib/utils";
 import { supabase } from "@/lib/supabase";
 
 export default function CartDrawer() {
-  const { items, isOpen, closeCart, updateQuantity, removeItem, getTotalPrice, clearCart } = useCartStore();
+  const { items, isOpen, closeCart, updateQuantity, removeItem, getTotalPrice, clearCart, syncPrices } = useCartStore();
   const [step, setStep] = useState<"cart" | "checkout" | "success">("cart");
 
   const [form, setForm] = useState({
@@ -57,6 +57,22 @@ export default function CartDrawer() {
     if (isOpen) prefillUser();
   }, [isOpen]);
 
+  // Sync live prices from Supabase every time cart opens
+  useEffect(() => {
+    if (!isOpen) return;
+    const productIds = items
+      .filter(i => !i.customDetails)
+      .map(i => i.product.id);
+    if (productIds.length === 0) return;
+    supabase
+      .from('products')
+      .select('id, price, original_price, variants')
+      .in('id', productIds)
+      .then(({ data }) => {
+        if (data) syncPrices(data);
+      });
+  }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // PIN Code auto-fill
   useEffect(() => {
     if (form.pincode.length === 6) {
@@ -64,10 +80,13 @@ export default function CartDrawer() {
       fetch(`https://api.postalpincode.in/pincode/${form.pincode}`)
         .then(res => res.json())
         .then(data => {
-          if (data[0].Status === "Success") {
+          if (data?.[0]?.Status === "Success") {
             const postOffice = data[0].PostOffice[0];
             setForm(f => ({ ...f, city: postOffice.District, state: postOffice.State }));
           }
+        })
+        .catch(() => {
+          // API unreachable (network error / CORS on localhost) — user fills city/state manually
         })
         .finally(() => setIsPinLoading(false));
     }
@@ -271,7 +290,12 @@ export default function CartDrawer() {
                       </div>
                     ) : (
                       <div className="space-y-4 flex-1">
-                        {items.map(({ product, quantity, selectedSize, selectedPrice, customDetails, cartItemId }) => (
+                        {items.map(({ product, quantity, selectedSize, selectedPrice, customDetails, cartItemId }) => {
+                          // Live price: use current product price, not the frozen localStorage price
+                          const livePrice = customDetails
+                            ? selectedPrice
+                            : (product.variants?.[selectedSize.toLowerCase() as keyof typeof product.variants]?.price ?? product.price);
+                          return (
                           <div key={cartItemId ?? `${product.id}-${selectedSize}`} className="flex gap-4 bg-black/40 border border-white/5 rounded-2xl p-4">
                             <div className="w-20 h-20 bg-surface rounded-xl border border-white/5 flex items-center justify-center shrink-0 overflow-hidden relative">
                               {customDetails ? (
@@ -304,11 +328,12 @@ export default function CartDrawer() {
                                     <button onClick={() => updateQuantity(product.id, selectedSize, quantity + 1)} className="p-1.5 hover:text-primary"><Plus className="w-3 h-3" /></button>
                                   </div>
                                 )}
-                                <p className="text-sm font-mono font-bold whitespace-nowrap ml-auto">{formatPrice(selectedPrice * quantity)}</p>
+                                <p className="text-sm font-mono font-bold whitespace-nowrap ml-auto">{formatPrice(livePrice * quantity)}</p>
                               </div>
                             </div>
                           </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     )}
                   </motion.div>

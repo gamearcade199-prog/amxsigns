@@ -30,9 +30,9 @@ const Hero = React.memo(() => {
             className={`text-4xl md:text-5xl lg:text-7xl -rotate-2 transform -translate-y-1 mb-8 md:mb-6 neon-sign-text ${
               runFirstFlicker ? "neon-first-ignite" : "neon-steady-glow"
             }`}
-            style={{ fontFamily: 'var(--nf-vibey), cursive', textTransform: 'none' }}
+            style={{ textTransform: 'none' }}
           >
-            neon lights brand
+            neon signs brand
           </div>
           
           <p className="text-xs sm:text-sm md:text-lg text-white/80 max-w-xs sm:max-w-sm md:max-w-2xl mx-auto leading-relaxed mb-8 px-2">

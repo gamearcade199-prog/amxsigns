@@ -19,6 +19,7 @@ export async function POST(request: NextRequest) {
       totalAmount,
       discountAmount,
       couponCode,
+      userId,
       items,
     } = body;
 
@@ -50,6 +51,7 @@ export async function POST(request: NextRequest) {
         payment_status: "paid",
         razorpay_order_id: razorpayOrderId,
         razorpay_payment_id: razorpayPaymentId,
+        user_id: userId ?? null,
       })
       .select("id")
       .single();

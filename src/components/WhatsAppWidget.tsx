@@ -8,7 +8,7 @@ const WhatsAppWidget = () => {
   const pathname = usePathname();
   // Using the number provided by the user. 
   // Assuming 91 is the country code or the start of the 10-digit number.
-  const phoneNumber = "919101361482"; 
+  const phoneNumber = "918822322905"; 
   const message = encodeURIComponent("Hi AMX Signs! I'm interested in ordering a neon sign.");
 
   if (pathname?.startsWith("/admin")) {

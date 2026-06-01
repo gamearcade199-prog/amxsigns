@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Zap, ArrowLeft, Mail, Lock, User, Loader2, X, Check } from "lucide-react";
+import { Zap, ArrowLeft, Mail, Lock, User, Loader2, X, Check, Eye, EyeOff } from "lucide-react";
 import Header from "@/components/Header";
 import { supabase } from "@/lib/supabase";
 
@@ -17,6 +17,7 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +35,7 @@ export default function AuthPage() {
         router.refresh();
         router.push("/");
       } else if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -45,7 +46,14 @@ export default function AuthPage() {
           },
         });
         if (error) throw error;
-        setSuccess("Check your email for the confirmation link!");
+        // Email confirmation is disabled — user is signed in immediately
+        if (data.session) {
+          router.refresh();
+          router.push("/");
+        } else {
+          // Fallback: if Supabase still requires confirmation for some reason
+          setSuccess("Account created! Please check your email to confirm.");
+        }
       } else if (mode === "forgot") {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: `${window.location.origin}/auth/callback?next=/auth/reset`,
@@ -150,13 +158,21 @@ export default function AuthPage() {
                     <div className="relative">
                       <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                       <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full bg-black border border-white/10 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-primary transition-colors"
+                        className="w-full bg-black border border-white/10 rounded-xl pl-11 pr-11 py-3 text-sm focus:outline-none focus:border-primary transition-colors"
                         placeholder="••••••••"
                         required
                       />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(v => !v)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-white transition-colors"
+                        aria-label={showPassword ? "Hide password" : "Show password"}
+                      >
+                        {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
                     </div>
                   </motion.div>
                 )}

@@ -10,16 +10,9 @@ export interface NeonFont {
 }
 
 export const NEON_FONTS: NeonFont[] = [
-  // Single-stroke scripts — consistent stroke width, replicates neon tube bends
-  { id: "passionate", name: "Passionate", category: "Script",      cssVar: "var(--nf-passionate)", fontFamily: "var(--nf-passionate)" },
-  { id: "flowy",      name: "Flowy",      category: "Script",      cssVar: "var(--nf-flowy)",      fontFamily: "var(--nf-flowy)" },
-  { id: "vibey",      name: "Vibey",      category: "Script",      cssVar: "var(--nf-vibey)",      fontFamily: "var(--nf-vibey)" },
-  // Handwritten — even stroke weight, single-path letterforms
-  { id: "funky",      name: "Funky",      category: "Handwritten", cssVar: "var(--nf-funky)",      fontFamily: "var(--nf-funky)" },
-  // Neon-specific — designed to simulate a continuous neon tube
-  { id: "retro",      name: "Retro",      category: "Neon",        cssVar: "var(--nf-retro)",      fontFamily: "var(--nf-retro)" },
-  // Thin display — tall, even single stroke, physically accurate for strip lights
-  { id: "skinny",     name: "Skinny",     category: "Thin",        cssVar: "var(--nf-skinny)",     fontFamily: "var(--nf-skinny)" },
+  { id: "dreamy",      name: "Dreamy",       category: "Script",      cssVar: "var(--nf-dreamy)",      fontFamily: "var(--nf-dreamy)" },
+  { id: "funky",       name: "Funky",        category: "Handwritten", cssVar: "var(--nf-funky)",       fontFamily: "var(--nf-funky)" },
+  { id: "modern",      name: "Modern",       category: "Modern",      cssVar: "var(--nf-modern)",      fontFamily: "var(--nf-modern)" },
 ];
 
 
@@ -51,8 +44,8 @@ export interface SizeOption {
 
 export const SIZE_OPTIONS: SizeOption[] = [
   { id: "regular", label: "Regular", heightInch: 10, widthPerChar: 3, basePrice: 950,  pricePerChar: 200, backingDiscount: 200 },
-  { id: "medium",  label: "Medium",  heightInch: 13, widthPerChar: 4, basePrice: 1550, pricePerChar: 250, backingDiscount: 300 },
-  { id: "large",   label: "Large",   heightInch: 15, widthPerChar: 5, basePrice: 2100, pricePerChar: 300, backingDiscount: 500 },
+  { id: "medium",  label: "Medium",  heightInch: 14, widthPerChar: 4, basePrice: 1550, pricePerChar: 250, backingDiscount: 300 },
+  { id: "large",   label: "Large",   heightInch: 18, widthPerChar: 5, basePrice: 2100, pricePerChar: 300, backingDiscount: 500 },
 ];
 
 export const BACKING_OPTIONS = [
@@ -75,8 +68,15 @@ export function calcPrice(
 }
 
 export function calcDimensions(text: string, sizeId: string): string {
-  const charCount = Math.max(text.replace(/\s/g, "").length, 1);
+  const lines = text.trim().split("\n");
   const size = SIZE_OPTIONS.find((s) => s.id === sizeId) ?? SIZE_OPTIONS[0];
-  const width = size.widthPerChar * charCount;
-  return `${width}" W × ${size.heightInch}" H`;
+  
+  // Width is based on the longest line in the text
+  const maxLineChars = Math.max(...lines.map(line => line.replace(/\s/g, "").length), 1);
+  const width = size.widthPerChar * maxLineChars;
+  
+  // Height starts at the base size height and increases by 10 inches for each additional line
+  const height = size.heightInch + (lines.length - 1) * 10;
+  
+  return `${height}" H × ${width}" W`;
 }

@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Prevents next/font from fetching Google Fonts at build time (hangs on restricted networks)
-  optimizeFonts: false,
+  optimizeFonts: true,
   images: {
     remotePatterns: [
       {

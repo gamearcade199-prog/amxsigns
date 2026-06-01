@@ -139,14 +139,13 @@ export const getProductsUnderPrice = async (maxPrice: number): Promise<Product[]
 
 export const getAllCategories = async (): Promise<string[]> => {
   const { data, error } = await supabase
-    .from("products")
-    .select("category");
+    .from("category_thumbnails")
+    .select("slug");
 
   if (error) {
     console.error("Error fetching categories:", error);
     return [];
   }
 
-  const categories = data.map((p) => p.category);
-  return Array.from(new Set(categories));
+  return data.map((c) => c.slug);
 };

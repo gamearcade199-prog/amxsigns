@@ -30,6 +30,7 @@ interface CartState {
   clearCart: () => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
+  syncPrices: (freshProducts: { id: string; price: number; original_price?: number; variants?: Record<string, { price: number }> }[]) => void;
   toggleCart: () => void;
   openCart: () => void;
   closeCart: () => void;
@@ -84,13 +85,31 @@ export const useCartStore = create<CartState>()(
           };
         }),
       clearCart: () => set({ items: [] }),
+      syncPrices: (freshProducts) =>
+        set((state) => ({
+          items: state.items.map((item) => {
+            if (item.customDetails) return item; // never touch custom signs
+            const fresh = freshProducts.find((p) => p.id === item.product.id);
+            if (!fresh) return item;
+            return {
+              ...item,
+              selectedPrice: fresh.variants?.[item.selectedSize.toLowerCase() as keyof typeof fresh.variants]?.price ?? fresh.price,
+              product: { ...item.product, price: fresh.price, original_price: fresh.original_price, variants: fresh.variants },
+            };
+          }),
+        })),
       getTotalItems: () =>
         get().items.reduce((sum, item) => sum + item.quantity, 0),
       getTotalPrice: () =>
-        get().items.reduce(
-          (sum, item) => sum + item.selectedPrice * item.quantity,
-          0
-        ),
+        get().items.reduce((sum, item) => {
+          // Custom signs keep their calculated price (no live product price to reference)
+          if (item.customDetails) return sum + item.selectedPrice * item.quantity;
+          // Regular items: always use the live price from the product object
+          const livePrice =
+            item.product.variants?.[item.selectedSize.toLowerCase() as keyof typeof item.product.variants]?.price ??
+            item.product.price;
+          return sum + livePrice * item.quantity;
+        }, 0),
       toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
       openCart: () => set({ isOpen: true }),
       closeCart: () => set({ isOpen: false }),

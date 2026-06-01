@@ -5,7 +5,9 @@ import {
   Inter,
   Outfit,
   JetBrains_Mono,
+  Pacifico,
 } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const CartDrawer = dynamic(() => import("@/components/CartDrawer"), { ssr: false, loading: () => null });
@@ -17,6 +19,7 @@ const WhatsAppWidget = dynamic(() => import("@/components/WhatsAppWidget"), { ss
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", weight: ["100","200","300","400","500","600","700","800","900"], display: "swap" });
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
+const pacifico = Pacifico({ weight: "400", subsets: ["latin"], variable: "--font-neon", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://amxsigns.com'),
@@ -71,7 +74,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const fontVars = [
-    inter.variable, outfit.variable, jetbrains.variable,
+    inter.variable, outfit.variable, jetbrains.variable, pacifico.variable,
   ].join(" ");
 
   return (
@@ -83,6 +86,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Footer />
         <CartDrawer />
         <WhatsAppWidget />
+        <Analytics />
       </body>
     </html>
   );

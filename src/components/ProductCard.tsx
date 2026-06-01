@@ -42,8 +42,37 @@ const ProductCard = React.memo(({ product, useTransition = false }: ProductCardP
     openCart();
   };
 
+  // Prefetch the optimized Next.js image on hover so the product page image
+  // loads instantly from cache when the user navigates (eliminates ~500ms delay)
+  const prefetched = React.useRef(false);
+  const handleMouseEnter = () => {
+    if (prefetched.current) return;
+    prefetched.current = true;
+
+    // Route prefetch — preloads the page JS/data
+    router.prefetch(`/products/${product.slug}`);
+
+    // Image prefetch — preloads the optimised image the product page will request
+    // Widths mirror the `sizes` prop on the main product image: 100vw or 50vw
+    const imagesToPrefetch = [
+      ...(product.images && product.images.length > 0 ? [product.images[0]] : []),
+      ...(product.image_url ? [product.image_url] : []),
+    ].filter(Boolean).slice(0, 1); // Only need the first/primary image
+
+    imagesToPrefetch.forEach((url) => {
+      [828, 1080].forEach((w) => {
+        const optimisedUrl = `/_next/image?url=${encodeURIComponent(url)}&w=${w}&q=75`;
+        const img = new window.Image();
+        img.src = optimisedUrl;
+      });
+    });
+  };
+
   return (
-    <div className="group h-full flex flex-col bg-surface border border-white/5 rounded-2xl p-2 sm:p-3 transition-transform duration-300 hover:-translate-y-1 hover:border-primary/20">
+    <div
+      className="group h-full flex flex-col bg-surface border border-white/5 rounded-2xl p-2 sm:p-3 transition-transform duration-300 hover:-translate-y-1 hover:border-primary/20"
+      onMouseEnter={handleMouseEnter}
+    >
       <Link href={`/products/${product.slug}`} onClick={handleNavigate} className="block relative">
         <div className="relative aspect-square rounded-xl overflow-hidden bg-black border border-white/5 transition-all duration-500 mb-4 flex items-center justify-center">
           {/* Product Image or Room Mockup Placeholder */}

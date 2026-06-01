@@ -78,7 +78,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     "logo": `${siteUrl}/logo.png`,
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+91-9101361482",
+      "telephone": "+91-8822322905",
       "contactType": "customer service",
       "areaServed": "IN",
       "availableLanguage": ["en", "hi"]

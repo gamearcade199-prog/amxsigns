@@ -191,6 +191,7 @@ export default function CheckoutPage() {
                 totalAmount: finalTotal,
                 discountAmount: discount,
                 couponCode: appliedCoupon?.code ?? null,
+                userId: currentUser?.id ?? null,
                 items: items.map((i) => ({
                   productId: i.product.id,
                   quantity: i.quantity,

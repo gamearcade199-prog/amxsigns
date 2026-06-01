@@ -119,6 +119,23 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product, rela
   const [added, setAdded] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
+  // Related products scroll
+  const relatedScrollRef = React.useRef<HTMLDivElement>(null);
+  const [relatedScroll, setRelatedScroll] = React.useState({ canLeft: false, canRight: true });
+
+  const updateRelatedScroll = () => {
+    const el = relatedScrollRef.current;
+    if (!el) return;
+    setRelatedScroll({
+      canLeft: el.scrollLeft > 8,
+      canRight: el.scrollLeft < el.scrollWidth - el.clientWidth - 8,
+    });
+  };
+
+  const scrollRelated = (dir: 'left' | 'right') => {
+    relatedScrollRef.current?.scrollBy({ left: dir === 'right' ? 500 : -500, behavior: 'smooth' });
+  };
+
   const images = product.images && product.images.length > 0 ? product.images : (product.image_url ? [product.image_url] : []);
 
   const variants = {
@@ -388,7 +405,12 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product, rela
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-3 md:gap-4 mb-6">
-                    {product.features.map((f, i) => (
+                    {[
+                      'High-Quality LED Neon',
+                      'Clear Acrylic Backing',
+                      'Power Adapter & Installation Kit Included',
+                      'Low Voltage (12V) - Safe for Indoor Use',
+                    ].map((f, i) => (
                       <div key={i} className="flex items-center gap-3 bg-surface border border-white/10 rounded-xl p-4 hover:border-primary/30 transition-colors">
                         <Check className="w-4 h-4 text-primary" />
                         <span className="text-sm md:text-base text-white/90">{f}</span>
@@ -406,8 +428,7 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product, rela
                         {[
                           ['Power Supply', '12V DC Adapter (included)'],
                           ['Operation', 'Silent — no hum, no heat'],
-                          ['Mounting', 'Screws & brackets (included)'],
-                          ['Lifespan', '50,000+ hours'],
+                          ['Mounting', 'Kit included'],
                           ['Installation', 'DIY — under 10 minutes'],
                           ['Country of Origin', 'India'],
                         ].map(([label, value]) => (
@@ -507,11 +528,36 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product, rela
       {related.length > 0 && (
         <section className="bg-black border-t border-white/5 pt-10 pb-32 md:py-16">
           <div className="container mx-auto px-4 lg:px-6">
-            <div className="mb-8">
-              <span className="text-primary font-mono text-xs uppercase tracking-[0.3em] mb-3 block">Related Designs</span>
-              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter">You May Also Like</h2>
+            <div className="mb-8 flex items-end justify-between">
+              <div>
+                <span className="text-primary font-mono text-xs uppercase tracking-[0.3em] mb-3 block">Related Designs</span>
+                <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter">You May Also Like</h2>
+              </div>
+              {/* Desktop scroll arrows */}
+              <div className="hidden md:flex items-center gap-2">
+                <button
+                  onClick={() => scrollRelated('left')}
+                  disabled={!relatedScroll.canLeft}
+                  className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-primary hover:text-primary transition-all disabled:opacity-20 disabled:cursor-not-allowed"
+                  aria-label="Scroll left"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+                <button
+                  onClick={() => scrollRelated('right')}
+                  disabled={!relatedScroll.canRight}
+                  className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-primary hover:text-primary transition-all disabled:opacity-20 disabled:cursor-not-allowed"
+                  aria-label="Scroll right"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+              </div>
             </div>
-            <div className="flex overflow-x-auto gap-4 md:gap-6 pb-4 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 scroll-px-4 lg:-mx-6 lg:px-6 lg:scroll-px-6">
+            <div
+              ref={relatedScrollRef}
+              onScroll={updateRelatedScroll}
+              className="flex overflow-x-auto gap-4 md:gap-6 pb-4 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 scroll-px-4 lg:-mx-6 lg:px-6 lg:scroll-px-6"
+            >
               {related.map((item) => (
                 <Link
                   key={item.id}

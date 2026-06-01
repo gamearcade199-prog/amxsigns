@@ -70,7 +70,7 @@ export default function OrderDetailsPage() {
           )
         `)
         .eq("id", id)
-        .eq("customer_email", user.email)
+        .or(`user_id.eq.${user.id},customer_email.eq.${user.email}`)
         .single();
 
       if (error || !data) {
