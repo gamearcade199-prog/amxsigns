@@ -4,10 +4,10 @@ import { useState, useRef, useEffect } from "react";
 import { Loader2, ChevronDown, Check, AlertTriangle, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const STATUSES = ["Order Placed", "Handcrafting", "Quality Check", "Shipped", "Delivered", "Cancelled"];
+const STATUSES = ["Confirmed", "Handcrafting", "Quality Check", "Shipped", "Delivered", "Cancelled"];
 
 export default function OrderStatusSelect({ orderId, currentStatus }: { orderId: string, currentStatus: string }) {
-  const [status, setStatus] = useState(currentStatus || "Order Placed");
+  const [status, setStatus] = useState(currentStatus || "Confirmed");
   const [isUpdating, setIsUpdating] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [pendingStatus, setPendingStatus] = useState<string | null>(null);
@@ -99,13 +99,15 @@ export default function OrderStatusSelect({ orderId, currentStatus }: { orderId:
   };
 
   const getStatusColor = (s: string) => {
-    switch (s) {
-      case "Order Placed": return "text-white bg-white/10 border-white/20";
-      case "Handcrafting": return "text-yellow-500 bg-yellow-500/10 border-yellow-500/20";
-      case "Quality Check": return "text-blue-500 bg-blue-500/10 border-blue-500/20";
-      case "Shipped": return "text-primary bg-primary/20 border-primary/30";
-      case "Delivered": return "text-green-500 bg-green-500/10 border-green-500/20";
-      case "Cancelled": return "text-red-500 bg-red-500/10 border-red-500/20";
+    const norm = s?.toLowerCase();
+    switch (norm) {
+      case "confirmed":
+      case "order placed": return "text-white bg-white/10 border-white/20";
+      case "handcrafting": return "text-yellow-500 bg-yellow-500/10 border-yellow-500/20";
+      case "quality check": return "text-blue-500 bg-blue-500/10 border-blue-500/20";
+      case "shipped": return "text-primary bg-primary/20 border-primary/30";
+      case "delivered": return "text-green-500 bg-green-500/10 border-green-500/20";
+      case "cancelled": return "text-red-500 bg-red-500/10 border-red-500/20";
       default: return "text-text-muted bg-white/5 border-white/10";
     }
   };
@@ -138,7 +140,7 @@ export default function OrderStatusSelect({ orderId, currentStatus }: { orderId:
                     key={s}
                     onClick={() => handleSelectStatus(s)}
                     className={`block w-full text-left px-4 py-2.5 text-[10px] font-black uppercase tracking-widest transition-colors ${
-                      status === s 
+                      status.toLowerCase() === s.toLowerCase()
                         ? "bg-primary/10 text-primary" 
                         : "text-text-muted hover:bg-white/5 hover:text-white"
                     }`}

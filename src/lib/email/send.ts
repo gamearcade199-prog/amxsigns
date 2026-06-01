@@ -10,16 +10,21 @@ import {
   buildT6Email
 } from './templates'
 
-export type OrderStatus = 'Order Placed' | 'Handcrafting' | 'Quality Check' | 'Shipped' | 'Delivered' | 'Cancelled'
+export type OrderStatus = 'Confirmed' | 'Handcrafting' | 'Quality Check' | 'Shipped' | 'Delivered' | 'Cancelled'
 
-export async function sendOrderEmail(order: any, newStatus: OrderStatus) {
+export async function sendOrderEmail(order: any, newStatus: string) {
   if (!process.env.RESEND_API_KEY) {
     console.warn('RESEND_API_KEY not found. Skipping email.');
     return;
   }
 
   // Guard against double sending
-  if (order.email_sent_for_status === newStatus) {
+  const normalizedStatus = newStatus.toLowerCase();
+  const alreadySent = order.email_sent_for_status?.toLowerCase() === normalizedStatus ||
+                      (normalizedStatus === 'confirmed' && order.email_sent_for_status?.toLowerCase() === 'order placed') ||
+                      (normalizedStatus === 'order placed' && order.email_sent_for_status?.toLowerCase() === 'confirmed');
+                      
+  if (alreadySent) {
     console.log(`Email already sent for status: ${newStatus}`);
     return;
   }
@@ -36,8 +41,9 @@ export async function sendOrderEmail(order: any, newStatus: OrderStatus) {
   if (!email) return;
 
   try {
-    switch (newStatus) {
-      case 'Order Placed': {
+    switch (normalizedStatus) {
+      case 'confirmed':
+      case 'order placed': {
         subject = `Order Confirmed: #${orderId}`
         // Determine if it's a custom sign order by checking items
         const hasCustom = order.order_items?.some((item: any) => !!item.custom_details);
@@ -106,17 +112,17 @@ export async function sendOrderEmail(order: any, newStatus: OrderStatus) {
         break;
       }
       
-      case 'Handcrafting':
+      case 'handcrafting':
         subject = `We're crafting your neon sign, ${customerName}!`
         html = buildT2Email({ name: customerName, order_id: orderId });
         break;
         
-      case 'Quality Check':
+      case 'quality check':
         subject = `Your sign is passing quality checks ✅`
         html = buildT3Email({ name: customerName, order_id: orderId });
         break;
         
-      case 'Shipped':
+      case 'shipped':
         subject = `Order Shipped: #${orderId}`
         // Since we don't have carrier details in DB yet, use placeholders or fetch if available
         html = buildT4Email({
@@ -129,12 +135,12 @@ export async function sendOrderEmail(order: any, newStatus: OrderStatus) {
         });
         break;
         
-      case 'Delivered':
+      case 'delivered':
         subject = `Delivered: Your AMX Sign has arrived!`
         html = buildT5Email({ name: customerName, order_id: orderId });
         break;
         
-      case 'Cancelled':
+      case 'cancelled':
         subject = `Order Cancelled: #${orderId}`
         html = buildT6Email({
           name: customerName,

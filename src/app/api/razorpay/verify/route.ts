@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { supabaseAdmin } from "@/lib/supabase-admin";
-import { Resend } from "resend";
+import { sendOrderEmail } from "@/lib/email/send";
 
 export async function POST(request: NextRequest) {
   try {
-    const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
-
     const body = await request.json();
     const {
       razorpayOrderId,
@@ -89,27 +87,29 @@ export async function POST(request: NextRequest) {
       await supabaseAdmin.rpc("increment_coupon_used_count", { coupon_code: couponCode });
     }
 
-    // Send Order Confirmation Email
-    if (resend) {
+    // Fetch full order with items and product details for the email dispatcher
+    const { data: fullOrder, error: fetchError } = await supabaseAdmin
+      .from("orders")
+      .select(`
+        *,
+        order_items (
+          *,
+          products (
+            *
+          )
+        )
+      `)
+      .eq("id", order.id)
+      .single();
+
+    if (fetchError || !fullOrder) {
+      console.error("Failed to fetch full order for confirmation email:", fetchError);
+    } else {
+      // Send dynamic status email automatically
       try {
-        await resend.emails.send({
-          from: "AMX Signs <orders@amxsigns.com>",
-          to: [customerEmail],
-          subject: `Order Confirmed: #${order.id.slice(0, 8).toUpperCase()}`,
-          html: `
-            <div style="font-family: sans-serif; color: #111;">
-              <h1 style="color: #BAFF00;">Thank you for your order, ${customerName}!</h1>
-              <p>We have successfully received your payment of INR ${totalAmount}. Our team is now preparing your custom neon magic.</p>
-              <p>Your Order ID is: <strong>${order.id}</strong></p>
-              <hr style="border: 1px solid #eee; margin: 20px 0;" />
-              <h3>Delivery Details</h3>
-              <p>${shippingAddress}</p>
-              <p>If you have any questions, simply reply to this email!</p>
-            </div>
-          `,
-        });
+        await sendOrderEmail(fullOrder, "Confirmed");
       } catch (emailError) {
-        console.error("Failed to send order confirmation email:", emailError);
+        console.error("Failed to send automatic order confirmation email:", emailError);
       }
     }
 
