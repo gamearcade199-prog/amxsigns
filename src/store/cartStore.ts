@@ -30,7 +30,7 @@ interface CartState {
   clearCart: () => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
-  syncPrices: (freshProducts: { id: string; price: number; original_price?: number; variants?: Record<string, { price: number }> }[]) => void;
+  syncPrices: (freshProducts: { id: string; price: number; original_price?: number; variants?: Product["variants"] }[]) => void;
   toggleCart: () => void;
   openCart: () => void;
   closeCart: () => void;
@@ -93,8 +93,13 @@ export const useCartStore = create<CartState>()(
             if (!fresh) return item;
             return {
               ...item,
-              selectedPrice: fresh.variants?.[item.selectedSize.toLowerCase() as keyof typeof fresh.variants]?.price ?? fresh.price,
-              product: { ...item.product, price: fresh.price, original_price: fresh.original_price, variants: fresh.variants },
+              selectedPrice: fresh.variants?.[item.selectedSize.toLowerCase() as keyof Product["variants"]]?.price ?? fresh.price,
+              product: { 
+                ...item.product, 
+                price: fresh.price, 
+                original_price: fresh.original_price, 
+                variants: fresh.variants ?? item.product.variants 
+              },
             };
           }),
         })),
