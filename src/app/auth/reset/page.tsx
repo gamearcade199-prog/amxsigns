@@ -75,7 +75,7 @@ export default function ResetPasswordPage() {
               <Lock className="text-black w-6 h-6" />
             </div>
             <h1 className="text-3xl font-black uppercase tracking-tighter mb-2">
-              New Password
+              Set Your New Password
             </h1>
             <p className="text-text-muted text-sm">
               Create a strong new password for your account.

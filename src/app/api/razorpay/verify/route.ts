@@ -68,12 +68,14 @@ export async function POST(request: NextRequest) {
         quantity: number;
         priceAtPurchase: number;
         selectedSize: string;
+        customDetails?: any;
       }) => ({
         order_id: order.id,
         product_id: item.productId,
         quantity: item.quantity,
         price_at_purchase: item.priceAtPurchase,
         selected_size: item.selectedSize,
+        custom_details: item.customDetails ?? null,
       }));
 
       const { error: itemsError } = await supabaseAdmin.from("order_items").insert(orderItems);

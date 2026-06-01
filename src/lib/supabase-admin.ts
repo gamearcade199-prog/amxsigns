@@ -1,3 +1,7 @@
+import ws from "ws";
+if (typeof global !== 'undefined' && !(global as any).WebSocket) {
+  (global as any).WebSocket = ws;
+}
 import { createClient } from "@supabase/supabase-js";
 
 // Note: SUPABASE_SERVICE_ROLE_KEY bypasses Row Level Security (RLS).

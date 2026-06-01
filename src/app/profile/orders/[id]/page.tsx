@@ -28,6 +28,15 @@ type OrderItem = {
   quantity: number;
   price_at_purchase: number;
   selected_size: string;
+  custom_details?: {
+    text: string;
+    fontName: string;
+    fontFamily: string;
+    color: string;
+    colorHex: string;
+    backing: string;
+    dimensions: string;
+  };
   products: {
     title: string;
     image_url: string;
@@ -130,6 +139,7 @@ export default function OrderDetailsPage() {
 
   return (
     <main className="min-h-screen bg-black selection:bg-primary/30 selection:text-primary">
+      <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Caveat:wght@700&family=Comfortaa:wght@700&display=swap" rel="stylesheet" />
       <Header />
       <div className="pt-24 pb-24 container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
@@ -218,33 +228,80 @@ export default function OrderDetailsPage() {
                 </div>
                 <div className="divide-y divide-white/5">
                   {order.order_items.map((item) => (
-                    <div key={item.id} className="p-6 flex gap-4 sm:gap-6">
-                      <div className="w-20 h-20 bg-black rounded-xl border border-white/5 overflow-hidden flex-shrink-0 relative">
-                        {item.products.image_url ? (
-                          <Image src={item.products.image_url} alt={item.products.title} fill className="object-cover" />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-[10px] font-mono text-white/10 uppercase">Neon</div>
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0 py-1">
-                        <div className="flex justify-between items-start gap-4 mb-2">
-                          <h4 className="text-sm font-black uppercase tracking-tight truncate">{item.products.title}</h4>
-                          <span className="text-sm font-mono font-bold text-white whitespace-nowrap">
-                            {formatPrice(item.price_at_purchase * item.quantity)}
-                          </span>
+                    <div key={item.id} className="p-6 flex flex-col gap-4">
+                      <div className="flex gap-4 sm:gap-6">
+                        <div className="w-20 h-20 bg-black rounded-xl border border-white/5 overflow-hidden flex-shrink-0 relative">
+                          {item.products.image_url ? (
+                            <Image src={item.products.image_url} alt={item.products.title} fill className="object-cover" />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-[10px] font-mono text-white/10 uppercase">Neon</div>
+                          )}
                         </div>
-                        <div className="flex flex-wrap gap-x-6 gap-y-2">
-                          <div className="text-[10px] font-mono text-text-muted uppercase">
-                            Size: <span className="text-white">{item.selected_size}</span>
+                        <div className="flex-1 min-w-0 py-1">
+                          <div className="flex justify-between items-start gap-4 mb-2">
+                            <h4 className="text-sm font-black uppercase tracking-tight truncate">{item.products.title}</h4>
+                            <span className="text-sm font-mono font-bold text-white whitespace-nowrap">
+                              {formatPrice(item.price_at_purchase * item.quantity)}
+                            </span>
                           </div>
-                          <div className="text-[10px] font-mono text-text-muted uppercase">
-                            Qty: <span className="text-white">{item.quantity}</span>
-                          </div>
-                          <div className="text-[10px] font-mono text-text-muted uppercase">
-                            Price: <span className="text-white">{formatPrice(item.price_at_purchase)}</span>
+                          <div className="flex flex-wrap gap-x-6 gap-y-2">
+                            <div className="text-[10px] font-mono text-text-muted uppercase">
+                              Size: <span className="text-white">{item.selected_size}</span>
+                            </div>
+                            <div className="text-[10px] font-mono text-text-muted uppercase">
+                              Qty: <span className="text-white">{item.quantity}</span>
+                            </div>
+                            <div className="text-[10px] font-mono text-text-muted uppercase">
+                              Price: <span className="text-white">{formatPrice(item.price_at_purchase)}</span>
+                            </div>
                           </div>
                         </div>
                       </div>
+                      {item.custom_details && (
+                        <div className="mt-2 p-4 bg-white/5 border border-white/10 rounded-xl space-y-3 max-w-md">
+                          <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                            <span className="text-[9px] font-mono text-text-muted uppercase tracking-widest">Your Neon Customization</span>
+                            <span 
+                              className="text-[9px] font-black px-2 py-0.5 rounded border uppercase tracking-wider" 
+                              style={{ color: item.custom_details.colorHex, borderColor: item.custom_details.colorHex }}
+                            >
+                              {item.custom_details.color}
+                            </span>
+                          </div>
+                          
+                          <div className="flex justify-center py-4 bg-black/45 rounded-lg border border-white/5 overflow-hidden">
+                            <span 
+                              className="text-2xl font-normal leading-normal select-none" 
+                              style={{ 
+                                fontFamily: item.custom_details.fontFamily, 
+                                color: item.custom_details.colorHex, 
+                                textShadow: `0 0 8px ${item.custom_details.colorHex}, 0 0 15px ${item.custom_details.colorHex}` 
+                              }}
+                            >
+                              {item.custom_details.text}
+                            </span>
+                          </div>
+                          
+                          <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-[10px]">
+                            <div>
+                              <span className="text-[8px] font-mono text-text-muted uppercase block">Text</span>
+                              <span className="font-bold text-white">&quot;{item.custom_details.text}&quot;</span>
+                            </div>
+                            <div>
+                              <span className="text-[8px] font-mono text-text-muted uppercase block">Font style</span>
+                              <span className="font-bold text-white">{item.custom_details.fontName}</span>
+                            </div>
+                            <div>
+                              <span className="text-[8px] font-mono text-text-muted uppercase block">Dimensions</span>
+                              <span className="font-bold text-white font-mono">{item.custom_details.dimensions}</span>
+                            </div>
+                            <div>
+                              <span className="text-[8px] font-mono text-text-muted uppercase block">Backing style</span>
+                              <span className="font-bold text-white">{item.custom_details.backing}</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

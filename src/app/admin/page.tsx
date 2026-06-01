@@ -1,6 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
-import { ShoppingBag, MessageSquare, TrendingUp, Users } from 'lucide-react'
+import { ShoppingBag, TrendingUp, Users } from 'lucide-react'
 import { formatPrice } from '@/lib/utils'
 
 export default async function AdminDashboard() {
@@ -18,15 +18,13 @@ export default async function AdminDashboard() {
   )
 
   // Fetch Stats in parallel
-  const [orderCountRes, quoteRes, recentOrdersRes, salesDataRes] = await Promise.all([
+  const [orderCountRes, recentOrdersRes, salesDataRes] = await Promise.all([
     supabase.from('orders').select('*', { count: 'exact', head: true }),
-    supabase.from('custom_designs').select('*', { count: 'exact', head: true }),
     supabase.from('orders').select('*').order('created_at', { ascending: false }).limit(5),
     supabase.from('orders').select('total_amount, customer_email')
   ])
 
   const orderCount = orderCountRes.count
-  const quoteCount = quoteRes.count
   const recentOrders = recentOrdersRes.data
   const salesData = salesDataRes.data
   
@@ -36,7 +34,6 @@ export default async function AdminDashboard() {
   const stats = [
     { label: 'Total Revenue', value: formatPrice(totalRevenue), icon: TrendingUp, color: 'text-primary' },
     { label: 'Orders', value: orderCount || 0, icon: ShoppingBag, color: 'text-blue-500' },
-    { label: 'Quotes', value: quoteCount || 0, icon: MessageSquare, color: 'text-purple-500' },
     { label: 'Customers', value: uniqueCustomers, icon: Users, color: 'text-green-500' },
   ]
 

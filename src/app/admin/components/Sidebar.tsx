@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 import { 
   LayoutDashboard, 
   ShoppingBag, 
-  MessageSquare, 
   Package, 
   TicketPercent,
   LogOut,
@@ -21,7 +20,6 @@ import { supabase } from '@/lib/supabase'
 const menuItems = [
   { icon: LayoutDashboard, label: 'Overview',    href: '/admin' },
   { icon: ShoppingBag,     label: 'Orders',       href: '/admin/orders' },
-  { icon: MessageSquare,   label: 'Custom Quotes', href: '/admin/quotes' },
   { icon: Package,         label: 'Products',     href: '/admin/products' },
   { icon: TrendingUp,      label: 'Trending',     href: '/admin/trending' },
   { icon: ImageIcon,       label: 'Categories',   href: '/admin/categories' },

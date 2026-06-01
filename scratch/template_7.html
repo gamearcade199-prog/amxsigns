@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Cancelled - AMX Signs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@700&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body, p, td, h2, h3, div, span {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    h1, h2, h3, h4, .brand-font {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    }
+    .mono-font {
+      font-family: 'JetBrains Mono', 'Courier New', Courier, monospace !important;
+    }
+    @media only screen and (max-width: 600px) {
+      .email-wrapper { padding: 20px 8px !important; }
+      .email-card { padding: 28px 18px !important; border-radius: 12px !important; }
+      .email-card h2 { font-size: 20px !important; }
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #000000; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased;">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #000000; min-height: 100vh;">
+    <tr>
+      <td align="center" style="padding: 40px 10px;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+          <!-- HEADER: Logo -->
+          <tr>
+            <td align="center" style="padding-bottom: 30px; text-align: center;">
+              <a href="https://amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
+                <span class="brand-font" style="font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; color: #ffffff; display: inline-block; line-height: 36px;">
+                  AMX<span class="brand-font" style="color: #FF007A; font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif;">SIGNS</span>
+                </span>
+              </a>
+            </td>
+          </tr>
+          
+          <!-- MAIN CONTENT BLOCK -->
+          <tr>
+            <td class="email-card" style="background-color: #0B0B0B; border: 1px solid #1A1A1A; border-top: 3px solid #FF007A; border-radius: 16px; padding: 40px 30px; color: #ffffff;">
+              <h2 style="font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 900; margin: 0 0 10px 0; color: #FF007A; text-transform: uppercase; letter-spacing: 1px;">
+                Order Cancelled
+              </h2>
+              <p style="color: #A0A0A0; font-size: 14px; line-height: 1.6; margin: 0 0 25px 0;">
+                Hi {{name}}, your Order <strong style="color: #ffffff; font-family: 'JetBrains Mono', 'Courier New', monospace;">#{{order_id}}</strong> has been cancelled.
+              </p>
+
+              <!-- Refund warning box -->
+              <div style="background-color: #121212; border-left: 4px solid #FF007A; border-radius: 4px; padding: 15px; margin-bottom: 30px;">
+                <p style="font-size: 13px; color: #dddddd; margin: 0; line-height: 1.5;">
+                  <strong>Refund:</strong> We have sent a refund of <span style="color: #36F4A4; font-weight: bold; font-family: 'JetBrains Mono', 'Courier New', monospace;">₹{{refund_amount}}</span> back to your original payment method. It usually takes 5-7 business days to show up in your account.
+                </p>
+              </div>
+
+              <p style="color: #888888; font-size: 12px; line-height: 1.6; margin-bottom: 30px;">
+                If this cancellation was unintended, or you would like to rebuild your order, please visit your account dashboard or connect with our support agents.
+              </p>
+
+              <div align="center">
+                <a href="https://amxsigns.com/collections" style="background-color: transparent; border: 1px solid #ffffff; color: #ffffff; text-decoration: none; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; padding: 12px 28px; border-radius: 9999px; display: inline-block;">
+                  Browse Our Signs
+                </a>
+              </div>
+            </td>
+          </tr>
+          
+          <!-- FOOTER -->
+          <tr>
+            <td align="center" style="padding-top: 40px; padding-bottom: 20px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td align="center" style="font-size: 11px; color: #666666; font-family: 'Inter', sans-serif; line-height: 1.6;">
+                    <p style="margin: 0; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: 1px;">AMX Signs</p>
+                    <p style="margin: 5px 0 15px 0;">Guwahati, India</p>
+                    <p style="margin: 0;">
+                      <a href="https://amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
+                      <a href="https://amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
+                      <a href="https://amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
+                    </p>
+                    <p style="margin-top: 20px; font-size: 9px; color: #444444;">&copy; 2026 AMX Signs. All rights reserved.</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

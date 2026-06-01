@@ -31,6 +31,9 @@ export default async function OrderDetailPage({ params }: { params: { id: string
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
+      {/* Dynamic Fonts for Custom Signs */}
+      <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Caveat:wght@700&family=Comfortaa:wght@700&display=swap" rel="stylesheet" />
+
       {/* Header */}
       <div className="flex items-center gap-4">
         <Link href="/admin/orders" className="p-2 bg-white/5 hover:bg-white/10 rounded-lg transition-colors">
@@ -138,10 +141,55 @@ export default async function OrderDetailPage({ params }: { params: { id: string
               <div className="flex-1">
                 <p className="font-bold text-sm">{item.products?.title || "Unknown Product"}</p>
                 <p className="text-xs text-text-muted font-mono mt-0.5">
-                  Qty: {item.quantity} × {formatPrice(item.price_at_purchase)}
+                  Qty: {item.quantity} × {formatPrice(item.price_at_purchase)} | Size: {item.selected_size}
                 </p>
+                {item.custom_details && (
+                  <div className="mt-3 p-4 bg-white/5 border border-white/10 rounded-xl space-y-3 max-w-md">
+                    <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                      <span className="text-[10px] font-mono text-text-muted uppercase tracking-widest">Custom Neon Preview</span>
+                      <span 
+                        className="text-[10px] font-black px-2 py-0.5 rounded border uppercase tracking-wider" 
+                        style={{ color: item.custom_details.colorHex, borderColor: item.custom_details.colorHex }}
+                      >
+                        {item.custom_details.color}
+                      </span>
+                    </div>
+                    
+                    <div className="flex justify-center py-4 bg-black/40 rounded-lg border border-white/5 overflow-hidden">
+                      <span 
+                        className="text-2xl font-normal leading-normal select-none" 
+                        style={{ 
+                          fontFamily: item.custom_details.fontFamily, 
+                          color: item.custom_details.colorHex, 
+                          textShadow: `0 0 8px ${item.custom_details.colorHex}, 0 0 15px ${item.custom_details.colorHex}` 
+                        }}
+                      >
+                        {item.custom_details.text}
+                      </span>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-[11px]">
+                      <div>
+                        <span className="text-[9px] font-mono text-text-muted uppercase block">Text</span>
+                        <span className="font-bold text-white">&quot;{item.custom_details.text}&quot;</span>
+                      </div>
+                      <div>
+                        <span className="text-[9px] font-mono text-text-muted uppercase block">Font style</span>
+                        <span className="font-bold text-white">{item.custom_details.fontName}</span>
+                      </div>
+                      <div>
+                        <span className="text-[9px] font-mono text-text-muted uppercase block">Dimensions</span>
+                        <span className="font-bold text-white font-mono">{item.custom_details.dimensions}</span>
+                      </div>
+                      <div>
+                        <span className="text-[9px] font-mono text-text-muted uppercase block">Backing style</span>
+                        <span className="font-bold text-white">{item.custom_details.backing}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className="text-right">
+              <div className="text-right shrink-0">
                 <p className="font-mono font-black text-primary">{formatPrice(item.quantity * item.price_at_purchase)}</p>
               </div>
             </div>

@@ -196,6 +196,7 @@ export default function CartDrawer() {
                   quantity: i.quantity,
                   priceAtPurchase: i.selectedPrice,
                   selectedSize: i.selectedSize,
+                  customDetails: i.customDetails || null,
                 })),
               }),
             });

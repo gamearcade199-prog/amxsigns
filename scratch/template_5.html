@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Shipped - AMX Signs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@700&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body, p, td, h2, h3, div, span {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    h1, h2, h3, h4, .brand-font {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    }
+    .mono-font {
+      font-family: 'JetBrains Mono', 'Courier New', Courier, monospace !important;
+    }
+    @media only screen and (max-width: 600px) {
+      .email-wrapper { padding: 20px 8px !important; }
+      .email-card { padding: 28px 18px !important; border-radius: 12px !important; }
+      .email-card h2 { font-size: 20px !important; }
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #000000; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased;">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #000000; min-height: 100vh;">
+    <tr>
+      <td align="center" style="padding: 40px 10px;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+          <!-- HEADER: Logo -->
+          <tr>
+            <td align="center" style="padding-bottom: 30px; text-align: center;">
+              <a href="https://amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
+                <span class="brand-font" style="font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; color: #ffffff; display: inline-block; line-height: 36px;">
+                  AMX<span class="brand-font" style="color: #C6FF00; font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif;">SIGNS</span>
+                </span>
+              </a>
+            </td>
+          </tr>
+          
+          <!-- MAIN CONTENT BLOCK -->
+          <tr>
+            <td class="email-card" style="background-color: #0B0B0B; border: 1px solid #1A1A1A; border-top: 3px solid #C6FF00; border-radius: 16px; padding: 40px 30px; color: #ffffff;">
+              <h2 style="font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 900; margin: 0 0 10px 0; color: #C6FF00; text-transform: uppercase; letter-spacing: 1px;">
+                Shipped & En Route!
+              </h2>
+              <p style="color: #A0A0A0; font-size: 14px; line-height: 1.6; margin: 0 0 30px 0;">
+                Hi {{name}}, great news! We've finished making and testing your neon sign for Order <strong style="color: #ffffff; font-family: 'JetBrains Mono', 'Courier New', monospace;">#{{order_id}}</strong>, and it is now on its way to you.
+              </p>
+
+              <!-- Tracking Details box -->
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #121212; border-radius: 12px; padding: 20px; margin-bottom: 30px; font-family: 'Inter', sans-serif;">
+                <tr>
+                  <td style="padding: 6px 0; font-size: 12px; color: #888888;">Delivery Service</td>
+                  <td style="padding: 6px 0; font-size: 12px; color: #ffffff; font-weight: bold; text-align: right;">{{tracking_carrier}}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; font-size: 12px; color: #888888;">Tracking Number</td>
+                  <td style="padding: 6px 0; font-size: 12px; color: #36F4A4; font-family: 'JetBrains Mono', 'Courier New', monospace; font-weight: bold; text-align: right;">{{tracking_number}}</td>
+                </tr>
+              </table>
+
+              <!-- Progress bar -->
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 35px;">
+                <tr>
+                  <td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="width: 100%; max-width: 480px; text-align: center; margin: 0 auto; font-family: 'Inter', sans-serif;">
+                      <tr>
+                        <td width="60" style="width: 60px; vertical-align: top; text-align: center; padding: 0; padding-top: 4px;">
+                          <div style="width: 10px; height: 10px; border-radius: 50%; background-color: #C6FF00; display: inline-block; box-shadow: 0 0 8px #C6FF00;"></div>
+                          <div style="font-size: 8px; font-weight: bold; color: #888888; text-transform: uppercase; font-family: 'Inter', sans-serif; letter-spacing: 0.5px; margin-top: 8px;">Placed</div>
+                        </td>
+                        <td style="vertical-align: top; padding: 0; padding-top: 8px; min-width: 10px;">
+                          <div style="height: 2px; background-color: #C6FF00; width: 100%; font-size: 1px; line-height: 1px;"></div>
+                        </td>
+                        <td width="60" style="width: 60px; vertical-align: top; text-align: center; padding: 0; padding-top: 4px;">
+                          <div style="width: 10px; height: 10px; border-radius: 50%; background-color: #C6FF00; display: inline-block; box-shadow: 0 0 8px #C6FF00;"></div>
+                          <div style="font-size: 8px; font-weight: bold; color: #888888; text-transform: uppercase; font-family: 'Inter', sans-serif; letter-spacing: 0.5px; margin-top: 8px;">Crafting</div>
+                        </td>
+                        <td style="vertical-align: top; padding: 0; padding-top: 8px; min-width: 10px;">
+                          <div style="height: 2px; background-color: #C6FF00; width: 100%; font-size: 1px; line-height: 1px;"></div>
+                        </td>
+                        <td width="60" style="width: 60px; vertical-align: top; text-align: center; padding: 0; padding-top: 4px;">
+                          <div style="width: 10px; height: 10px; border-radius: 50%; background-color: #C6FF00; display: inline-block; box-shadow: 0 0 8px #C6FF00;"></div>
+                          <div style="font-size: 8px; font-weight: bold; color: #888888; text-transform: uppercase; font-family: 'Inter', sans-serif; letter-spacing: 0.5px; margin-top: 8px;">QC</div>
+                        </td>
+                        <td style="vertical-align: top; padding: 0; padding-top: 8px; min-width: 10px;">
+                          <div style="height: 2px; background-color: #C6FF00; width: 100%; font-size: 1px; line-height: 1px;"></div>
+                        </td>
+                        <td width="60" style="width: 60px; vertical-align: top; text-align: center; padding: 0; padding-top: 0px;">
+                          <div style="width: 14px; height: 14px; border-radius: 50%; background-color: #C6FF00; border: 2px solid #000; display: inline-block; box-shadow: 0 0 15px #C6FF00;"></div>
+                          <div style="font-size: 8px; font-weight: 900; color: #C6FF00; text-transform: uppercase; font-family: 'Inter', sans-serif; letter-spacing: 0.5px; margin-top: 4px;">Shipped</div>
+                        </td>
+                        <td style="vertical-align: top; padding: 0; padding-top: 8px; min-width: 10px;">
+                          <div style="height: 2px; background-color: #1a1a1a; width: 100%; font-size: 1px; line-height: 1px;"></div>
+                        </td>
+                        <td width="60" style="width: 60px; vertical-align: top; text-align: center; padding: 0; padding-top: 4px;">
+                          <div style="width: 10px; height: 10px; border-radius: 50%; background-color: #1a1a1a; display: inline-block;"></div>
+                          <div style="font-size: 8px; font-weight: bold; color: #444444; text-transform: uppercase; font-family: 'Inter', sans-serif; letter-spacing: 0.5px; margin-top: 8px;">Delivered</div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- CTA to Tracking URL -->
+              <div align="center">
+                <a href="{{tracking_url}}" target="_blank" style="background-color: #C6FF00; color: #000000; text-decoration: none; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 15px 35px; border-radius: 9999px; display: inline-block; box-shadow: 0 0 15px rgba(198, 255, 0, 0.3);">
+                  Track Shipment
+                </a>
+              </div>
+            </td>
+          </tr>
+          
+          <!-- FOOTER -->
+          <tr>
+            <td align="center" style="padding-top: 40px; padding-bottom: 20px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td align="center" style="font-size: 11px; color: #666666; font-family: 'Inter', sans-serif; line-height: 1.6;">
+                    <p style="margin: 0; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: 1px;">AMX Signs</p>
+                    <p style="margin: 5px 0 15px 0;">Guwahati, India</p>
+                    <p style="margin: 0;">
+                      <a href="https://amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
+                      <a href="https://amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
+                      <a href="https://amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
+                    </p>
+                    <p style="margin-top: 20px; font-size: 9px; color: #444444;">&copy; 2026 AMX Signs. All rights reserved.</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
