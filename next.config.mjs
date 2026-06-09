@@ -27,6 +27,10 @@ const nextConfig = {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
           },
+          {
+            key: "Link",
+            value: "</llms.txt>; rel=\"llms-txt\"",
+          },
         ],
       },
     ];

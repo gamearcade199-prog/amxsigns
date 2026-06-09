@@ -124,7 +124,7 @@ export default function ProductForm({ product }: ProductFormProps) {
         category,
         price: topPrice,
         original_price: topOriginalPrice,
-        description: description.slice(0, 300),
+        description: description.slice(0, 400),
         badge: badge || null,
         in_stock: inStock,
         image_url: uploadedUrls[0] || null,
@@ -315,17 +315,17 @@ export default function ProductForm({ product }: ProductFormProps) {
             <label className="block text-xs font-bold uppercase tracking-widest text-text-muted">
               Description
             </label>
-            <span className={`text-[10px] font-mono ${description.length > 250 ? 'text-accent-pink' : 'text-text-muted'}`}>
-              {description.length}/300
+            <span className={`text-[10px] font-mono ${description.length > 350 ? 'text-accent-pink' : 'text-text-muted'}`}>
+              {description.length}/400
             </span>
           </div>
           <textarea
             rows={4}
-            maxLength={300}
+            maxLength={400}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors resize-none text-sm leading-relaxed"
-            placeholder="Describe the neon sign (max 300 characters)..."
+            placeholder="Describe the neon sign (max 400 characters)..."
           />
         </div>
 

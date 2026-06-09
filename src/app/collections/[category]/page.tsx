@@ -195,9 +195,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </h2>
           )}
           {content?.intro && (
-            <p className="text-text-muted text-sm leading-relaxed mt-4 max-w-2xl">
-              {content.intro}
-            </p>
+            <div className="mt-6 p-5 rounded-2xl border border-white/5 bg-gradient-to-br from-surface to-surface-dark max-w-2xl">
+              <p className="text-xs font-mono uppercase text-primary tracking-widest mb-2">Overview & Search Intent Summary</p>
+              <p className="text-text-muted text-sm leading-relaxed">
+                <strong>Summary:</strong> {content.intro}
+              </p>
+            </div>
           )}
         </div>
 
