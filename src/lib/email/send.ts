@@ -130,7 +130,7 @@ export async function sendOrderEmail(order: any, newStatus: string) {
           order_id: orderId,
           carrier_name: order.carrier_name || 'Standard Shipping',
           tracking_id: order.tracking_id || 'Will be updated shortly',
-          tracking_url: order.tracking_url || 'https://amxsigns.com/profile',
+          tracking_url: order.tracking_url || 'https://www.amxsigns.com/profile',
           eta_date: order.eta_date || '3-5 Business Days'
         });
         break;

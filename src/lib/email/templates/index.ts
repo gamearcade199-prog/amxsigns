@@ -35,7 +35,7 @@ export function buildT1AEmail(vars: { name: string, order_id: string, custom_tex
           <!-- HEADER: Logo -->
           <tr>
             <td align="center" style="padding-bottom: 30px; text-align: center;">
-              <a href="https://amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
+              <a href="https://www.amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
                 <span class="brand-font" style="font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; color: #ffffff; display: inline-block; line-height: 36px;">
                   AMX<span class="brand-font" style="color: #C6FF00; font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif;">SIGNS</span>
                 </span>
@@ -109,7 +109,7 @@ export function buildT1AEmail(vars: { name: string, order_id: string, custom_tex
 
               <!-- CTA Button -->
               <div align="center">
-                <a href="https://amxsigns.com/profile" target="_blank" style="background-color: #C6FF00; color: #000000; text-decoration: none; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 15px 35px; border-radius: 9999px; display: inline-block;">
+                <a href="https://www.amxsigns.com/profile" target="_blank" style="background-color: #C6FF00; color: #000000; text-decoration: none; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 15px 35px; border-radius: 9999px; display: inline-block;">
                   Track Design Status
                 </a>
               </div>
@@ -125,9 +125,9 @@ export function buildT1AEmail(vars: { name: string, order_id: string, custom_tex
                     <p style="margin: 0; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: 1px;">AMX Signs</p>
                     <p style="margin: 5px 0 15px 0;">Guwahati, India</p>
                     <p style="margin: 0;">
-                      <a href="https://amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
-                      <a href="https://amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
-                      <a href="https://amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
+                      <a href="https://www.amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
+                      <a href="https://www.amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
+                      <a href="https://www.amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
                     </p>
                     <p style="margin-top: 20px; font-size: 9px; color: #444444;">&copy; 2026 AMX Signs. All rights reserved.</p>
                   </td>
@@ -190,7 +190,7 @@ export function buildT1BEmail(vars: { name: string, order_id: string, total: str
           <!-- HEADER: Logo -->
           <tr>
             <td align="center" style="padding-bottom: 30px; text-align: center;">
-              <a href="https://amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
+              <a href="https://www.amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
                 <span class="brand-font" style="font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; color: #ffffff; display: inline-block; line-height: 36px;">
                   AMX<span class="brand-font" style="color: #C6FF00; font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif;">SIGNS</span>
                 </span>
@@ -249,7 +249,7 @@ export function buildT1BEmail(vars: { name: string, order_id: string, total: str
 
               <!-- CTA Button -->
               <div align="center">
-                <a href="https://amxsigns.com/profile" style="background-color: #C6FF00; color: #000000; text-decoration: none; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 15px 35px; border-radius: 9999px; display: inline-block;">
+                <a href="https://www.amxsigns.com/profile" style="background-color: #C6FF00; color: #000000; text-decoration: none; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 15px 35px; border-radius: 9999px; display: inline-block;">
                   View Order Details
                 </a>
               </div>
@@ -265,9 +265,9 @@ export function buildT1BEmail(vars: { name: string, order_id: string, total: str
                     <p style="margin: 0; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: 1px;">AMX Signs</p>
                     <p style="margin: 5px 0 15px 0;">Guwahati, India</p>
                     <p style="margin: 0;">
-                      <a href="https://amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
-                      <a href="https://amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
-                      <a href="https://amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
+                      <a href="https://www.amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
+                      <a href="https://www.amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
+                      <a href="https://www.amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
                     </p>
                     <p style="margin-top: 20px; font-size: 9px; color: #444444;">&copy; 2026 AMX Signs. All rights reserved.</p>
                   </td>
@@ -325,7 +325,7 @@ export function buildT2Email(vars: { name: string, order_id: string }) {
           <!-- HEADER: Logo -->
           <tr>
             <td align="center" style="padding-bottom: 30px; text-align: center;">
-              <a href="https://amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
+              <a href="https://www.amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
                 <span class="brand-font" style="font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; color: #ffffff; display: inline-block; line-height: 36px;">
                   AMX<span class="brand-font" style="color: #C6FF00; font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif;">SIGNS</span>
                 </span>
@@ -398,7 +398,7 @@ export function buildT2Email(vars: { name: string, order_id: string }) {
               </table>
 
               <div align="center">
-                <a href="https://amxsigns.com/profile" target="_blank" style="background-color: transparent; border: 1px solid #C6FF00; color: #C6FF00; text-decoration: none; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; padding: 12px 28px; border-radius: 9999px; display: inline-block;">
+                <a href="https://www.amxsigns.com/profile" target="_blank" style="background-color: transparent; border: 1px solid #C6FF00; color: #C6FF00; text-decoration: none; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; padding: 12px 28px; border-radius: 9999px; display: inline-block;">
                   Track Live Progress
                 </a>
               </div>
@@ -414,9 +414,9 @@ export function buildT2Email(vars: { name: string, order_id: string }) {
                     <p style="margin: 0; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: 1px;">AMX Signs</p>
                     <p style="margin: 5px 0 15px 0;">Guwahati, India</p>
                     <p style="margin: 0;">
-                      <a href="https://amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
-                      <a href="https://amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
-                      <a href="https://amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
+                      <a href="https://www.amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
+                      <a href="https://www.amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
+                      <a href="https://www.amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
                     </p>
                     <p style="margin-top: 20px; font-size: 9px; color: #444444;">&copy; 2026 AMX Signs. All rights reserved.</p>
                   </td>
@@ -469,7 +469,7 @@ export function buildT3Email(vars: { name: string, order_id: string }) {
           <!-- HEADER: Logo -->
           <tr>
             <td align="center" style="padding-bottom: 30px; text-align: center;">
-              <a href="https://amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
+              <a href="https://www.amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
                 <span class="brand-font" style="font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; color: #ffffff; display: inline-block; line-height: 36px;">
                   AMX<span class="brand-font" style="color: #C6FF00; font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif;">SIGNS</span>
                 </span>
@@ -553,7 +553,7 @@ export function buildT3Email(vars: { name: string, order_id: string }) {
               </table>
 
               <div align="center">
-                <a href="https://amxsigns.com/profile" target="_blank" style="background-color: transparent; border: 1px solid #C6FF00; color: #C6FF00; text-decoration: none; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; padding: 12px 28px; border-radius: 9999px; display: inline-block;">
+                <a href="https://www.amxsigns.com/profile" target="_blank" style="background-color: transparent; border: 1px solid #C6FF00; color: #C6FF00; text-decoration: none; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; padding: 12px 28px; border-radius: 9999px; display: inline-block;">
                   Check Status Details
                 </a>
               </div>
@@ -569,9 +569,9 @@ export function buildT3Email(vars: { name: string, order_id: string }) {
                     <p style="margin: 0; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: 1px;">AMX Signs</p>
                     <p style="margin: 5px 0 15px 0;">Guwahati, India</p>
                     <p style="margin: 0;">
-                      <a href="https://amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
-                      <a href="https://amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
-                      <a href="https://amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
+                      <a href="https://www.amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
+                      <a href="https://www.amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
+                      <a href="https://www.amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
                     </p>
                     <p style="margin-top: 20px; font-size: 9px; color: #444444;">&copy; 2026 AMX Signs. All rights reserved.</p>
                   </td>
@@ -624,7 +624,7 @@ export function buildT4Email(vars: { name: string, order_id: string, carrier_nam
           <!-- HEADER: Logo -->
           <tr>
             <td align="center" style="padding-bottom: 30px; text-align: center;">
-              <a href="https://amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
+              <a href="https://www.amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
                 <span class="brand-font" style="font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; color: #ffffff; display: inline-block; line-height: 36px;">
                   AMX<span class="brand-font" style="color: #C6FF00; font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif;">SIGNS</span>
                 </span>
@@ -716,9 +716,9 @@ export function buildT4Email(vars: { name: string, order_id: string, carrier_nam
                     <p style="margin: 0; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: 1px;">AMX Signs</p>
                     <p style="margin: 5px 0 15px 0;">Guwahati, India</p>
                     <p style="margin: 0;">
-                      <a href="https://amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
-                      <a href="https://amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
-                      <a href="https://amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
+                      <a href="https://www.amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
+                      <a href="https://www.amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
+                      <a href="https://www.amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
                     </p>
                     <p style="margin-top: 20px; font-size: 9px; color: #444444;">&copy; 2026 AMX Signs. All rights reserved.</p>
                   </td>
@@ -775,7 +775,7 @@ export function buildT5Email(vars: { name: string, order_id: string }) {
           <!-- HEADER: Logo -->
           <tr>
             <td align="center" style="padding-bottom: 30px; text-align: center;">
-              <a href="https://amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
+              <a href="https://www.amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
                 <span class="brand-font" style="font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; color: #ffffff; display: inline-block; line-height: 36px;">
                   AMX<span class="brand-font" style="color: #C6FF00; font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif;">SIGNS</span>
                 </span>
@@ -795,7 +795,7 @@ export function buildT5Email(vars: { name: string, order_id: string }) {
 
 
               <div align="center">
-                <a href="https://amxsigns.com/profile" target="_blank" style="background-color: #C6FF00; color: #000000; text-decoration: none; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 15px 35px; border-radius: 9999px; display: inline-block;">
+                <a href="https://www.amxsigns.com/profile" target="_blank" style="background-color: #C6FF00; color: #000000; text-decoration: none; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 15px 35px; border-radius: 9999px; display: inline-block;">
                   View Order Invoice
                 </a>
               </div>
@@ -811,9 +811,9 @@ export function buildT5Email(vars: { name: string, order_id: string }) {
                     <p style="margin: 0; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: 1px;">AMX Signs</p>
                     <p style="margin: 5px 0 15px 0;">Guwahati, India</p>
                     <p style="margin: 0;">
-                      <a href="https://amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
-                      <a href="https://amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
-                      <a href="https://amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
+                      <a href="https://www.amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
+                      <a href="https://www.amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
+                      <a href="https://www.amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
                     </p>
                     <p style="margin-top: 20px; font-size: 9px; color: #444444;">&copy; 2026 AMX Signs. All rights reserved.</p>
                   </td>
@@ -866,7 +866,7 @@ export function buildT6Email(vars: { name: string, order_id: string, refund_amou
           <!-- HEADER: Logo -->
           <tr>
             <td align="center" style="padding-bottom: 30px; text-align: center;">
-              <a href="https://amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
+              <a href="https://www.amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
                 <span class="brand-font" style="font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; color: #ffffff; display: inline-block; line-height: 36px;">
                   AMX<span class="brand-font" style="color: #FF007A; font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif;">SIGNS</span>
                 </span>
@@ -896,7 +896,7 @@ export function buildT6Email(vars: { name: string, order_id: string, refund_amou
               </p>
 
               <div align="center">
-                <a href="https://amxsigns.com/collections" style="background-color: transparent; border: 1px solid #ffffff; color: #ffffff; text-decoration: none; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; padding: 12px 28px; border-radius: 9999px; display: inline-block;">
+                <a href="https://www.amxsigns.com/collections" style="background-color: transparent; border: 1px solid #ffffff; color: #ffffff; text-decoration: none; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; padding: 12px 28px; border-radius: 9999px; display: inline-block;">
                   Browse Our Signs
                 </a>
               </div>
@@ -912,9 +912,9 @@ export function buildT6Email(vars: { name: string, order_id: string, refund_amou
                     <p style="margin: 0; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: 1px;">AMX Signs</p>
                     <p style="margin: 5px 0 15px 0;">Guwahati, India</p>
                     <p style="margin: 0;">
-                      <a href="https://amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
-                      <a href="https://amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
-                      <a href="https://amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
+                      <a href="https://www.amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
+                      <a href="https://www.amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
+                      <a href="https://www.amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
                     </p>
                     <p style="margin-top: 20px; font-size: 9px; color: #444444;">&copy; 2026 AMX Signs. All rights reserved.</p>
                   </td>
@@ -967,7 +967,7 @@ export function buildT7Email(vars: { name: string, reset_url: string }) {
           <!-- HEADER: Logo -->
           <tr>
             <td align="center" style="padding-bottom: 30px; text-align: center;">
-              <a href="https://amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
+              <a href="https://www.amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
                 <span class="brand-font" style="font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; color: #ffffff; display: inline-block; line-height: 36px;">
                   AMX<span class="brand-font" style="color: #C6FF00; font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif;">SIGNS</span>
                 </span>
@@ -1007,9 +1007,9 @@ export function buildT7Email(vars: { name: string, reset_url: string }) {
                     <p style="margin: 0; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: 1px;">AMX Signs</p>
                     <p style="margin: 5px 0 15px 0;">Guwahati, India</p>
                     <p style="margin: 0;">
-                      <a href="https://amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
-                      <a href="https://amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
-                      <a href="https://amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
+                      <a href="https://www.amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
+                      <a href="https://www.amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
+                      <a href="https://www.amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
                     </p>
                     <p style="margin-top: 20px; font-size: 9px; color: #444444;">&copy; 2026 AMX Signs. All rights reserved.</p>
                   </td>
@@ -1062,7 +1062,7 @@ export function buildT8Email(vars: { name: string, custom_text: string, color_na
           <!-- HEADER: Logo -->
           <tr>
             <td align="center" style="padding-bottom: 30px; text-align: center;">
-              <a href="https://amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
+              <a href="https://www.amxsigns.com" target="_blank" style="text-decoration: none; display: inline-block;">
                 <span class="brand-font" style="font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; color: #ffffff; display: inline-block; line-height: 36px;">
                   AMX<span class="brand-font" style="color: #C6FF00; font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif;">SIGNS</span>
                 </span>
@@ -1113,7 +1113,7 @@ export function buildT8Email(vars: { name: string, custom_text: string, color_na
 
               <!-- CTA Button -->
               <div align="center">
-                <a href="https://amxsigns.com/collections" target="_blank" style="background-color: #C6FF00; color: #000000; text-decoration: none; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 15px 35px; border-radius: 9999px; display: inline-block; box-shadow: 0 0 15px rgba(198, 255, 0, 0.3);">
+                <a href="https://www.amxsigns.com/collections" target="_blank" style="background-color: #C6FF00; color: #000000; text-decoration: none; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 15px 35px; border-radius: 9999px; display: inline-block; box-shadow: 0 0 15px rgba(198, 255, 0, 0.3);">
                   Resume Your Order
                 </a>
               </div>
@@ -1129,9 +1129,9 @@ export function buildT8Email(vars: { name: string, custom_text: string, color_na
                     <p style="margin: 0; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: 1px;">AMX Signs</p>
                     <p style="margin: 5px 0 15px 0;">Guwahati, India</p>
                     <p style="margin: 0;">
-                      <a href="https://amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
-                      <a href="https://amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
-                      <a href="https://amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
+                      <a href="https://www.amxsigns.com/profile" style="color: #C6FF00; text-decoration: none;">My Account</a> &bull; 
+                      <a href="https://www.amxsigns.com/contact" style="color: #C6FF00; text-decoration: none;">Help Center</a> &bull; 
+                      <a href="https://www.amxsigns.com/privacy" style="color: #C6FF00; text-decoration: none;">Privacy Policy</a>
                     </p>
                     <p style="margin-top: 20px; font-size: 9px; color: #444444;">&copy; 2026 AMX Signs. All rights reserved.</p>
                   </td>
