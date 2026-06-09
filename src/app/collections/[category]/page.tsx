@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: CategoryPageProps) {
 
   const title = `${categoryName} Neon Signs | Custom LED Neon India | AMX Signs`;
   const description = `Shop our premium ${categoryName} neon sign collection. Handcrafted, energy-efficient LED neon signs for your space. Free PAN-India shipping and 1-year warranty.`;
-  const canonicalUrl = `https://amxsigns.com/collections/${params.category}`;
+  const canonicalUrl = `https://www.amxsigns.com/collections/${params.category}`;
 
   return {
     title,
@@ -116,7 +116,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     categoryName = mapDbCategoryToLabel(categoryProducts[0]?.category || dbCategory);
   }
 
-  const siteUrl = 'https://amxsigns.com';
+  const siteUrl = 'https://www.amxsigns.com';
   const catSlug = params.category.toLowerCase();
   const content = categoryContent[catSlug];
 

@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   const post = getPostBySlug(params.slug);
   if (!post) return { title: 'Article Not Found | AMX Signs' };
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://amxsigns.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.amxsigns.com';
   const canonicalUrl = `${siteUrl}/blog/${post.slug}`;
 
   return {
@@ -55,7 +55,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const post = getPostBySlug(params.slug);
   if (!post) return notFound();
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://amxsigns.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.amxsigns.com';
   const canonicalUrl = `${siteUrl}/blog/${post.slug}`;
 
   // Fetch related products data to populate recommendation cards

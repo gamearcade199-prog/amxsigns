@@ -7,7 +7,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "All Collections | AMX Signs India",
     description: "Browse our complete catalog of handcrafted LED neon signs. Filter by category, price, and search for your perfect neon design.",
-    url: "https://amxsigns.com/collections",
+    url: "https://www.amxsigns.com/collections",
+  },
+  alternates: {
+    canonical: "https://www.amxsigns.com/collections",
   }
 };
 

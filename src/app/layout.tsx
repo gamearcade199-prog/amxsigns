@@ -22,7 +22,7 @@ const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", 
 const pacifico = Pacifico({ weight: "400", subsets: ["latin"], variable: "--font-neon", display: "swap" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://amxsigns.com'),
+  metadataBase: new URL('https://www.amxsigns.com'),
   title: {
     default: "AMX Signs | Premium High-Energy Neon Art India",
     template: "%s | AMX Signs"
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://amxsigns.com",
+    url: "https://www.amxsigns.com",
     siteName: "AMX Signs",
     title: "AMX Signs | Premium High-Energy Neon Art",
     description: "Premium handcrafted LED neon signs delivered with speed and surgical precision. Order your custom neon today.",

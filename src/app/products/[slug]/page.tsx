@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: ProductPageProps) {
   const product = await getProductBySlug(params.slug);
   if (!product) return { title: "Product Not Found | AMX Signs" };
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://amxsigns.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.amxsigns.com';
   const canonicalUrl = `${siteUrl}/products/${product.slug}`;
   // First 120 chars of description + CTA — optimised for human click-through
   const metaDescription = `${product.description.slice(0, 120)}. Handcrafted in India. Free shipping. 7-day returns.`;
@@ -63,7 +63,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const product = await getProductBySlug(params.slug);
   if (!product) return notFound();
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://amxsigns.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.amxsigns.com';
 
   // ── S-TIER HONEST JSON-LD SCHEMA WITH UNIFIED ENTITY @GRAPH ───────────────
   const allImages = product.images && product.images.length > 0

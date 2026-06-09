@@ -9,7 +9,7 @@ export const metadata = {
   title: 'Inspirational Neon Setup & Styling Guides | AMX Signs Blog',
   description: 'Explore expert guides on custom gaming room styling, interior design with LED neon lights, F1 track collectibles, and DIY installation tips from AMX Signs.',
   alternates: {
-    canonical: 'https://amxsigns.com/blog',
+    canonical: 'https://www.amxsigns.com/blog',
   },
 };
 

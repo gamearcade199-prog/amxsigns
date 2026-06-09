@@ -17,8 +17,8 @@ export default async function Home() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "AMX Signs",
-    "url": "https://amxsigns.com",
-    "logo": "https://amxsigns.com/logo.png",
+    "url": "https://www.amxsigns.com",
+    "logo": "https://www.amxsigns.com/logo.png",
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+91-YOUR-NUMBER",
@@ -36,10 +36,10 @@ export default async function Home() {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "itemListElement": [
-      { "@type": "SiteNavigationElement", "position": 1, "name": "Home", "url": "https://amxsigns.com" },
-      { "@type": "SiteNavigationElement", "position": 2, "name": "Shop All", "url": "https://amxsigns.com/collections" },
-      { "@type": "SiteNavigationElement", "position": 3, "name": "Custom Neon", "url": "https://amxsigns.com/custom" },
-      { "@type": "SiteNavigationElement", "position": 4, "name": "Business", "url": "https://amxsigns.com/business" }
+      { "@type": "SiteNavigationElement", "position": 1, "name": "Home", "url": "https://www.amxsigns.com" },
+      { "@type": "SiteNavigationElement", "position": 2, "name": "Shop All", "url": "https://www.amxsigns.com/collections" },
+      { "@type": "SiteNavigationElement", "position": 3, "name": "Custom Neon", "url": "https://www.amxsigns.com/custom" },
+      { "@type": "SiteNavigationElement", "position": 4, "name": "Business", "url": "https://www.amxsigns.com/business" }
     ]
   };
 

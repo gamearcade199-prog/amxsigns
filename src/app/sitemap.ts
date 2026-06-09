@@ -4,7 +4,7 @@ import { CITIES } from '@/lib/cities';
 import { getPosts } from '@/lib/posts';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://amxsigns.com'; // Replace with actual production URL
+  const baseUrl = 'https://www.amxsigns.com';
   
   // Fetch all products to include in sitemap
   const products = await getProducts();

@@ -35,4 +35,4 @@ Disallow: /cart
 Disallow: /checkout
 
 # Sitemap Location
-Sitemap: https://amxsigns.com/sitemap.xml
+Sitemap: https://www.amxsigns.com/sitemap.xml

@@ -26,11 +26,11 @@ export async function generateMetadata({ params }: CityPageProps) {
   return {
     title,
     description,
-    alternates: { canonical: `https://amxsigns.com/locations/${city.slug}` },
+    alternates: { canonical: `https://www.amxsigns.com/locations/${city.slug}` },
     openGraph: {
       title,
       description,
-      url: `https://amxsigns.com/locations/${city.slug}`,
+      url: `https://www.amxsigns.com/locations/${city.slug}`,
     },
   };
 }
@@ -70,7 +70,7 @@ export default async function CityPage({ params }: CityPageProps) {
   const allProducts = await getProducts();
   const featured = allProducts.slice(0, 6);
 
-  const siteUrl = "https://amxsigns.com";
+  const siteUrl = "https://www.amxsigns.com";
 
   // LocalBusiness schema with city context
   const localBusinessSchema = {
