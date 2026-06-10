@@ -60,15 +60,15 @@ const categoryContent: Record<string, { h1: string; h2: string; intro: string }>
     h2: 'Handcrafted LED Art for Garages & Showrooms',
     intro: 'Transform your garage, home showroom, or man cave with our automotive neon collection. Each sign features a precision-cut LED silhouette of iconic cars — from BMW and Ferrari to F1 racing machinery. Designed for car enthusiasts who want their passion on the wall. Handcrafted in India with 12V low-voltage LEDs, silent operation, and free PAN-India shipping.',
   },
-  'gaming': {
-    h1: 'Gaming Neon Signs India',
-    h2: 'Level Up Your Setup with Custom LED Neon',
-    intro: 'Elevate your gaming setup, streaming background, or bedroom with our gaming neon collection. From controller silhouettes to iconic game logos, each piece is handcrafted with high-quality LED neon flex. Built for gamers who take their space as seriously as their builds. Fast delivery across India, plug-and-play installation, and a 1-year warranty.',
-  },
   'anime': {
     h1: 'Anime Neon Signs India',
     h2: 'Display Your Passion with LED Neon Wall Art',
     intro: 'Show your love for Japanese animation with our anime neon sign collection. Featuring iconic characters and symbols from Dragon Ball, Naruto, and more — each sign is a handcrafted LED art piece. Perfect for bedrooms, study rooms, and collectors. All signs are made with silent, cool-running 12V LEDs and ship free across India.',
+  },
+  'anime-pop': {
+    h1: 'Anime & Pop Culture Neon Signs',
+    h2: 'Vibrant LED Wall Art for Gamers, Otaku, & Fans',
+    intro: 'Transform your room with our premium Anime & Pop Culture neon collection. Featuring handcrafted LED outlines of iconic anime emblems, gaming motifs, and pop-culture symbols. Safe, silent 12V LED neon with free shipping across India.',
   },
   'f1': {
     h1: 'F1 & Racing Neon Signs',
@@ -194,17 +194,20 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               {content.h2}
             </h2>
           )}
-          {content?.intro && (
-            <div className="mt-6 p-5 rounded-2xl border border-white/5 bg-gradient-to-br from-surface to-surface-dark max-w-2xl">
-              <p className="text-xs font-mono uppercase text-primary tracking-widest mb-2">Overview & Search Intent Summary</p>
-              <p className="text-text-muted text-sm leading-relaxed">
-                <strong>Summary:</strong> {content.intro}
-              </p>
-            </div>
-          )}
         </div>
 
         <CollectionGrid products={categoryProducts} />
+
+        {content?.intro && (
+          <div className="mt-20 border-t border-white/5 pt-10 max-w-3xl">
+            <h3 className="text-xs font-mono uppercase text-primary tracking-widest mb-3">
+              About Our {categoryName} Signs
+            </h3>
+            <p className="text-text-muted text-sm leading-relaxed">
+              {content.intro}
+            </p>
+          </div>
+        )}
       </div>
     </main>
   );

@@ -6,12 +6,11 @@ export type CategoryConfig = {
 
 export const CATEGORY_CONFIG: CategoryConfig[] = [
   { label: "Cafe", slug: "cafe", dbValue: "Cafe" },
-  { label: "Gaming", slug: "gaming", dbValue: "Gaming" },
   { label: "Wings", slug: "wings", dbValue: "Wings" },
   { label: "Cars", slug: "cars", dbValue: "Cars" },
   { label: "Aesthetic", slug: "aesthetic", dbValue: "Aesthetic" },
   { label: "Love", slug: "love", dbValue: "Love" },
-  { label: "Pop Culture", slug: "pop-culture", dbValue: "Pop Culture" },
+  { label: "Anime/Pop", slug: "anime-pop", dbValue: "Anime/Pop" },
   { label: "Under 4000", slug: "under-4000", dbValue: "Under 4000" },
 ];
 

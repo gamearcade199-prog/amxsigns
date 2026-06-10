@@ -26,8 +26,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const categories = [
-    'cafe', 'aesthetic', 'love', 'wings', 'gaming', 
-    'pop-culture', 'cars', 'under-4000'
+    'cafe', 'aesthetic', 'love', 'wings', 
+    'anime-pop', 'cars', 'under-4000'
   ];
 
   const categoryEntries: MetadataRoute.Sitemap = categories.map((cat) => ({
