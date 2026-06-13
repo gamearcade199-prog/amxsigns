@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Library 3 AM';
+  src: url('/fonts/library-3-am.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #000000;
   --foreground: #ffffff;
@@ -11,6 +19,7 @@
   --accent-cyan: #00F0FF;
   --accent-mint: #36F4A4;
   --text-muted: #A0A0A0;
+  --nf-library3am: 'Library 3 AM', sans-serif;
 }
 
 @layer base {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -20,6 +20,7 @@ import {
   Mail,
   Loader2,
   AlertCircle,
+  X,
 } from 'lucide-react';
 import { Product } from '@/lib/products';
 import { useCartStore } from '@/store/cartStore';
@@ -100,20 +101,83 @@ function SoldOutNotify({ productTitle, productId }: { productTitle: string; prod
 
 // Category-specific use-case sentence — seals search intent match
 const useCaseByCategory: Record<string, string> = {
-  'Cars':      'A reliable choice for garage walls, home showrooms, or as a gift for automotive enthusiasts.',
-  'Gaming':    'Designed for gaming setups, streaming backgrounds, and bedroom accent lighting.',
-  'Anime':     'Popular among collectors and fans looking to display their passion for Japanese animation.',
-  'F1':        'Ideal for race fans, home offices, and premium man caves.',
-  'Aesthetic': 'Pairs well with minimalist interiors, café setups, and creative studio spaces.',
-  'Love':      'A meaningful personalised gift for anniversaries, Valentine\'s Day, or home décor.',
-  'Wings':     'Works as a statement wall piece for bedrooms, dressing rooms, and photo backdrops.',
-  'Cafe':      'Designed for café environments, reception walls, and hospitality interiors.',
+  'cars':        'A reliable choice for garage walls, home showrooms, or as a gift for automotive enthusiasts.',
+  'Cars':        'A reliable choice for garage walls, home showrooms, or as a gift for automotive enthusiasts.',
+  'gaming':      'Designed for gaming setups, streaming backgrounds, and bedroom accent lighting.',
+  'Gaming':      'Designed for gaming setups, streaming backgrounds, and bedroom accent lighting.',
+  'anime':       'Popular among collectors and fans looking to display their passion for Japanese animation.',
+  'Anime':       'Popular among collectors and fans looking to display their passion for Japanese animation.',
+  'pop culture': 'Popular among collectors and fans looking to display their passion for anime and pop culture.',
+  'Pop Culture': 'Popular among collectors and fans looking to display their passion for anime and pop culture.',
+  'f1':          'Ideal for race fans, home offices, and premium man caves.',
+  'F1':          'Ideal for race fans, home offices, and premium man caves.',
+  'aesthetic':   'Pairs well with minimalist interiors, café setups, and creative studio spaces.',
+  'Aesthetic':   'Pairs well with minimalist interiors, café setups, and creative studio spaces.',
+  'love':        'A meaningful personalised gift for anniversaries, Valentine\'s Day, or home décor.',
+  'Love':        'A meaningful personalised gift for anniversaries, Valentine\'s Day, or home décor.',
+  'wings':       'Works as a statement wall piece for bedrooms, dressing rooms, and photo backdrops.',
+  'Wings':       'Works as a statement wall piece for bedrooms, dressing rooms, and photo backdrops.',
+  'cafe-bar':    'Designed for café and bar environments, reception walls, and hospitality interiors.',
+  'CAFE/BAR':    'Designed for café and bar environments, reception walls, and hospitality interiors.',
+  'sports':      'Designed for home gyms, fitness centres, and sports clubs.',
+  'Sports':      'Designed for home gyms, fitness centres, and sports clubs.',
 };
 
 const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product, related = [] }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState('Regular');
-  const [activeTab, setActiveTab] = useState<'details' | 'box' | 'install' | 'faq'>('details');
+  const [activeSection, setActiveSection] = useState('details');
+  const [hasBanner, setHasBanner] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openMainFaq, setOpenMainFaq] = useState<number | null>(null);
+  const [imageError, setImageError] = useState(false);
+
+  const sections = [
+    { id: 'details', label: 'Details' },
+    { id: 'install', label: 'Install' },
+    { id: 'customise', label: 'Customise' },
+    { id: 'faq', label: 'FAQs' }
+  ];
+
+  useEffect(() => {
+    // Check for banner class on mount
+    setHasBanner(document.body.classList.contains('has-banner'));
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 196;
+      for (const sec of sections) {
+        const el = document.getElementById(sec.id);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(sec.id);
+            break;
+          }
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const isMobile = window.innerWidth < 768;
+      const headerOffset = hasBanner 
+        ? (isMobile ? 196 : 220) 
+        : (isMobile ? 156 : 176);
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      setActiveSection(id);
+    }
+  };
+
   const addItem = useCartStore((state) => state.addItem);
   const openCart = useCartStore((state) => state.openCart);
   const [added, setAdded] = useState(false);
@@ -168,7 +232,7 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product, rela
   return (
     <main className="min-h-screen bg-black selection:bg-primary/30 selection:text-primary" itemScope itemType="https://schema.org/Product">
       <Header />
-      <div className="pt-24 pb-28 lg:pb-16 container mx-auto px-4 lg:px-6">
+      <div className="pt-24 pb-10 md:pb-12 container mx-auto px-4 lg:px-6">
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="mb-8">
           <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-mono text-text-muted uppercase tracking-widest">
@@ -368,142 +432,330 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product, rela
           </div>
         </article>
 
-        {/* Tabbed Content */}
-        <div className="mt-20">
-          <div className="flex gap-4 border-b border-white/10 mb-6 overflow-x-auto scrollbar-hide">
-            {[
-              { id: 'details', label: 'Product Information', icon: Info },
-              { id: 'box', label: 'What is In The Box', icon: Package },
-              { id: 'install', label: 'Easy Installation', icon: Wrench },
-              { id: 'faq', label: 'Product FAQs', icon: Sparkles },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                className={`flex items-center gap-2 pb-3 text-[11px] font-black uppercase tracking-widest border-b-2 transition-colors whitespace-nowrap ${activeTab === tab.id ? 'border-primary text-primary' : 'border-transparent text-text-muted hover:text-white'
+        {/* Sticky Sub-Navigation Bar Container */}
+        <div 
+          className={`sticky z-40 w-full transition-all duration-300 py-2 md:py-3 pointer-events-none ${
+            hasBanner ? 'top-[128px] md:top-[136px]' : 'top-[92px] md:top-[100px]'
+          }`}
+        >
+          {/* Floating Capsule Bar */}
+          <div className="mx-auto w-max max-w-[calc(100%-1.5rem)] rounded-full border border-white/10 bg-black/90 md:bg-black/80 backdrop-blur-xl py-2 px-3 md:py-2 md:px-5 flex gap-2 md:gap-3 justify-center items-center shadow-[0_8px_32px_rgba(0,0,0,0.8)] pointer-events-auto overflow-x-auto scrollbar-hide">
+            {sections.map((sec) => {
+              const isActive = activeSection === sec.id;
+              return (
+                <button
+                  key={sec.id}
+                  onClick={() => scrollToSection(sec.id)}
+                  className={`px-3.5 py-2 md:px-4 md:py-2 text-[11px] xs:text-[12px] md:text-xs font-black uppercase tracking-widest rounded-full transition-all duration-300 whitespace-nowrap ${
+                    isActive
+                      ? 'bg-primary text-black shadow-[0_0_12px_rgba(198,255,0,0.4)] md:shadow-[0_0_10px_rgba(198,255,0,0.3)]'
+                      : 'text-text-muted hover:text-white'
                   }`}
-              >
-                <tab.icon className="w-4 h-4" />
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="min-h-[400px]">
-            <AnimatePresence mode="wait">
-              {activeTab === 'details' && (
-                <motion.section key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-                  <div className="rounded-2xl border border-white/10 bg-surface/70 p-5 md:p-6 mb-5">
-                    <span className="text-primary font-mono text-[10px] uppercase tracking-[0.3em] mb-2 block">Product Details</span>
-                    <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight mb-3">About {product.title} Neon Wall Art</h2>
-                    <p className="text-text-muted leading-relaxed text-base md:text-lg max-w-3xl" itemProp="description">{product.description}</p>
-                    {useCaseByCategory[product.category] && (
-                      <p className="text-text-muted/70 text-sm leading-relaxed mt-3 italic max-w-3xl">
-                        {useCaseByCategory[product.category]}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="grid sm:grid-cols-2 gap-3 md:gap-4 mb-6">
-                    {[
-                      'High-Quality LED Neon',
-                      'Clear Acrylic Backing',
-                      'Power Adapter & Installation Kit Included',
-                      'Low Voltage (12V) - Safe for Indoor Use',
-                    ].map((f, i) => (
-                      <div key={i} className="flex items-center gap-3 bg-surface border border-white/10 rounded-xl p-4 hover:border-primary/30 transition-colors">
-                        <Check className="w-4 h-4 text-primary" />
-                        <span className="text-sm md:text-base text-white/90">{f}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Technical Specifications Table — increases dwell time */}
-                  <div className="rounded-xl border border-white/10 overflow-hidden">
-                    <div className="px-4 py-3 border-b border-white/10 bg-surface/50">
-                      <h3 className="text-xs font-black uppercase tracking-widest text-text-muted">Technical Specifications</h3>
-                    </div>
-                    <table className="w-full text-sm">
-                      <tbody>
-                        {[
-                          ['Power Supply', '12V DC Adapter (included)'],
-                          ['Operation', 'Silent — no hum, no heat'],
-                          ['Mounting', 'Kit included'],
-                          ['Installation', 'DIY — under 10 minutes'],
-                          ['Country of Origin', 'India'],
-                        ].map(([label, value]) => (
-                          <tr key={label} className="border-b border-white/5 last:border-0">
-                            <td className="px-4 py-3 text-text-muted text-xs uppercase tracking-wider font-mono w-1/2">{label}</td>
-                            <td className="px-4 py-3 text-white/90 text-sm">{value}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </motion.section>
-              )}
-              {activeTab === 'box' && (
-                <motion.section key="box" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {[
-                      { icon: Zap, label: `${product.title} Neon Sign`, desc: 'Your handcrafted design in premium LED neon' },
-                      { icon: Package, label: 'Standard Mounting Kit', desc: 'Screws, wall anchors & mounting brackets' },
-                      { icon: ShieldCheck, label: 'Official 1Y Warranty', desc: 'Peace of mind with full coverage' },
-                      { icon: Sparkles, label: '12V Power Adapter', desc: 'Safe low-voltage adapter for Indian outlets' },
-                      { icon: Wrench, label: 'Step-by-Step Guide', desc: 'Easy manual for DIY setup' },
-                      { icon: Truck, label: 'Secure Packaging', desc: 'Foam-lined box for zero-damage transit' },
-                    ].map((item, i) => (
-                      <div key={i} className="bg-surface border border-white/5 rounded-xl p-5">
-                        <item.icon className="w-6 h-6 text-primary mb-3" />
-                        <h3 className="text-sm font-black uppercase tracking-wide mb-1">{item.label}</h3>
-                        <p className="text-[11px] text-text-muted">{item.desc}</p>
-                      </div>
-                    ))}
-                  </div>
-                </motion.section>
-              )}
-              {activeTab === 'install' && (
-                <motion.section key="install" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-                  <h2 className="text-xl font-black uppercase mb-6">How to Install Your Neon Sign</h2>
-                  <div className="grid sm:grid-cols-2 gap-6 max-w-3xl">
-                    {[
-                      { step: '01', title: 'Mark & Drill', desc: 'Use the included template to mark holes. Drill with a 6mm bit.' },
-                      { step: '02', title: 'Insert Anchors', desc: 'Gently push wall anchors into the drilled holes.' },
-                      { step: '03', title: 'Mount Brackets', desc: 'Screw the wall brackets flush to your surface.' },
-                      { step: '04', title: 'Hang & Glow', desc: 'Slide the sign onto brackets and connect the 12V adapter.' },
-                    ].map((item) => (
-                      <div key={item.step} className="flex gap-4 bg-surface border border-white/5 rounded-xl p-5">
-                        <span className="text-2xl font-black text-primary/30">{item.step}</span>
-                        <div>
-                          <h4 className="text-sm font-black uppercase tracking-wide mb-1">{item.title}</h4>
-                          <p className="text-[11px] text-text-muted">{item.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.section>
-              )}
-              {activeTab === 'faq' && (
-                <motion.section key="faq" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="max-w-3xl space-y-4">
-                  <h2 className="text-xl font-black uppercase mb-6">Common Questions about {product.title}</h2>
-                  {[
-                    { q: 'Is this LED neon safe for my bedroom?', a: 'Yes. AMX Signs use safe, 12V low-voltage technology. They stay cool to the touch and are 100% silent.' },
-                    { q: 'What is your shipping time for metro cities?', a: 'We offer fast dispatch. Most metro cities (Mumbai, Delhi, Bangalore) receive delivery in 3-5 days.' },
-                    { q: 'What happens if it arrives damaged?', a: 'We have a zero-risk policy. If the sign is damaged in transit, we will replace it free of charge.' },
-                    { q: 'Does it come with a dimmer?', a: 'All our signs are dimmer-compatible. You can purchase a separate dimmer remote to adjust brightness.' },
-                  ].map((faq, i) => (
-                    <div key={i} className="bg-surface border border-white/5 rounded-xl p-5">
-                      <h4 className="text-sm font-black uppercase tracking-wide mb-2">{faq.q}</h4>
-                      <p className="text-[11px] text-text-muted leading-relaxed">{faq.a}</p>
-                    </div>
-                  ))}
-                </motion.section>
-              )}
-            </AnimatePresence>
+                >
+                  {sec.label}
+                </button>
+              );
+            })}
           </div>
         </div>
-      </div>
 
+        {/* Stacked Layout Sections */}
+        <div className="space-y-5 md:space-y-8 mt-6 md:mt-8">
+          {/* Section 1: Product Details */}
+          <section id="details" className="scroll-mt-44 space-y-6 text-center flex flex-col items-center">
+            {/* Main Description card */}
+            <div className="rounded-2xl border border-white/5 bg-white/[0.01] p-5 sm:p-6 md:py-7 md:px-10 w-full max-w-5xl mx-auto flex flex-col items-center">
+              <span className="text-primary font-mono text-xs md:text-sm uppercase tracking-[0.3em] mb-2.5 block">Product Details</span>
+              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-4">About {product.title} Neon Wall Art</h2>
+              <p className="text-text-muted leading-relaxed text-base sm:text-lg max-w-4xl mx-auto" itemProp="description">{product.description}</p>
+              {useCaseByCategory[product.category] && (
+                <p className="text-text-muted/60 text-sm sm:text-base leading-relaxed mt-4 italic border-l-2 border-primary/45 pl-5 max-w-4xl mx-auto text-left">
+                  {useCaseByCategory[product.category]}
+                </p>
+              )}
+
+              {/* Static Hardware Callout Image Container */}
+              <div className="mt-6 pt-6 border-t border-white/5 w-full flex flex-col items-center">
+                <div className="flex flex-col sm:flex-row items-center gap-2 mb-5 justify-center">
+                  <span className="text-primary font-mono text-xs md:text-sm uppercase tracking-[0.3em]">What&apos;s in the Box</span>
+                </div>
+                <div className="relative w-full max-w-4xl aspect-[1.6] rounded-xl overflow-hidden bg-black/40 border border-white/5 flex items-center justify-center group mx-auto">
+                  {imageError ? (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-black/60">
+                      <Zap className="w-8 h-8 text-primary/40 mb-3 animate-pulse" />
+                      <span className="text-primary font-mono text-xs md:text-sm uppercase tracking-[0.3em] mb-2">What&apos;s in the Box Diagram</span>
+                      <p className="text-text-muted/80 text-sm max-w-md leading-relaxed">
+                        Please save your custom hardware graphic as <code className="text-white bg-white/5 px-1.5 py-0.5 rounded font-mono text-[11px]">public/images/hardware-guide.png</code> in the codebase to display it here.
+                      </p>
+                    </div>
+                  ) : (
+                    <Image
+                      src="/images/hardware-guide.png"
+                      alt={`${product.title} Neon Sign What's in the Box Guide - Backing, Cord, Dimmer, and Adapter details`}
+                      fill
+                      className="object-contain transition-transform duration-500 group-hover:scale-[1.01]"
+                      onError={() => setImageError(true)}
+                      sizes="(max-width: 1024px) 100vw, 920px"
+                    />
+                  )}
+                </div>
+              </div>
+            </div>          </section>
+
+          {/* Section 2: Easy Installation */}
+          <section id="install" className="scroll-mt-44 border-t border-white/5 pt-4 md:pt-6 space-y-6 text-center flex flex-col items-center">
+            <div>
+              <span className="text-primary font-mono text-xs md:text-sm uppercase tracking-[0.3em] mb-2 block">Setup Guide</span>
+              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">How to Install Your Neon Sign</h2>
+            </div>
+            {/* Horizontal timeline layout on desktop and 2x2 grid on mobile */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-5xl w-full text-left">
+              {[
+                { step: '01', title: 'Measure & Mark', desc: 'Use a tape measure to position your sign and mark the screw points.' },
+                { step: '02', title: 'Drill Holes', desc: 'Safely drill small guide holes at your marked positions on the wall.' },
+                { step: '03', title: 'Secure Mounts', desc: 'Use the provided stainless steel (SS) screws to mount the sign.' },
+                { step: '04', title: 'Connect & Glow', desc: 'Plug the power adapter into your thin cable to light it up!' },
+              ].map((item) => (
+                <div key={item.step} className="bg-white/[0.01] border border-white/5 rounded-xl p-3.5 sm:p-5 hover:border-primary/30 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(198,255,0,0.04)] transition-all duration-300 group">
+                  <span className="text-2xl sm:text-3xl font-mono font-black text-primary/30 group-hover:text-primary transition-colors block mb-1.5 sm:mb-2 drop-shadow-[0_0_8px_rgba(198,255,0,0.1)]">
+                    {item.step}
+                  </span>
+                  <h4 className="text-[11px] xs:text-xs sm:text-sm md:text-base font-black uppercase text-white tracking-wider mb-1.5">{item.title}</h4>
+                  <p className="text-[10px] xs:text-[11px] sm:text-xs md:text-sm text-text-muted leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Section 3: Customise & Quality Comparison */}
+          <section id="customise" className="scroll-mt-44 border-t border-white/5 pt-4 md:pt-6">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start max-w-6xl mx-auto w-full">
+              {/* Left Column: FAQs & CTA */}
+              <div className="lg:col-span-5 space-y-6">
+                <div>
+                  <span className="text-[#FF3B30] font-mono text-xs md:text-sm uppercase tracking-[0.3em] mb-2 block">AMX Guarantee</span>
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-tight leading-none text-white">
+                    Highest quality, with the lowest price guarantee
+                  </h2>
+                </div>
+                <p className="text-text-muted leading-relaxed text-sm md:text-base">
+                  You are guaranteed quality, service, and reliability. With over 10 years of experience, no project is unfeasible for us. We also guarantee the lowest price. Have you received a better quote? We compare and ensure the lowest prices.
+                </p>
+
+                {/* FAQ Accordions */}
+                <div className="space-y-2 pt-2">
+                  {[
+                    {
+                      num: '01',
+                      q: 'What is the delivery time of a Custom Neon Sign?',
+                      a: 'Every sign is handcrafted to order. Standard delivery across India takes 5-8 business days, with free shipping and real-time tracking provided.'
+                    },
+                    {
+                      num: '02',
+                      q: 'Why is the quality higher at our store?',
+                      a: 'We build our signs using 5mm clear acrylic backing, premium double-layered LED neon tubing for maximum brightness, and solid stainless steel wall anchors. Plus, we cover every sign with a 12-month warranty.'
+                    }
+                  ].map((item, idx) => {
+                    const isOpen = openFaq === idx;
+                    return (
+                      <div key={idx} className="border-b border-white/5">
+                        <button
+                          onClick={() => setOpenFaq(isOpen ? null : idx)}
+                          className="w-full py-3 flex items-center justify-between text-left group"
+                        >
+                          <div className="flex items-center gap-3">
+                            <span className="text-xs font-black text-primary font-mono">{item.num}</span>
+                            <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-white/95 group-hover:text-primary transition-colors">
+                              {item.q}
+                            </span>
+                          </div>
+                          <span className="text-text-muted text-sm font-bold ml-2">
+                            {isOpen ? '−' : '+'}
+                          </span>
+                        </button>
+                        <AnimatePresence initial={false}>
+                          {isOpen && (
+                            <motion.div
+                              key="content"
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="overflow-hidden"
+                            >
+                              <p className="pb-4 text-xs sm:text-sm text-text-muted leading-relaxed">
+                                {item.a}
+                              </p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="flex justify-center pt-2">
+                  <a 
+                    href={`https://wa.me/918822322905?text=${encodeURIComponent("Hi AMX Signs! I'm interested in getting a free quote and design for a custom neon sign.")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <motion.span 
+                      animate={{ scale: [1, 1.02, 1], boxShadow: ["0 0 10px rgba(198,255,0,0.15)", "0 0 22px rgba(198,255,0,0.45)", "0 0 10px rgba(198,255,0,0.15)"] }}
+                      transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+                      className="inline-block px-8 py-3.5 bg-primary text-black font-black uppercase tracking-widest rounded-full text-[10px] cursor-pointer transition-all hover:scale-[1.05] active:scale-[0.98] neon-bloom-lime"
+                    >
+                      Free Quote & Design
+                    </motion.span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Right Column: Comparison Table */}
+              <div className="lg:col-span-7 overflow-x-auto rounded-2xl border border-white/5 bg-[#080808]/50 backdrop-blur-xl p-1">
+                <table className="w-full min-w-0 border-collapse text-left text-[10px] sm:text-xs">
+                  <thead>
+                    <tr className="border-b border-white/5">
+                      <th className="py-2.5 px-2 md:p-3 text-[10px] md:text-xs font-black uppercase tracking-widest text-text-muted bg-black/10">Comparison</th>
+                      <th className="py-2.5 px-2 md:p-3 text-[11px] md:text-sm font-black uppercase tracking-widest text-black bg-primary text-center rounded-t-xl shadow-[0_0_12px_rgba(198,255,0,0.15)]">
+                        AMX Signs
+                        <span className="block text-[8px] sm:text-[9px] font-mono tracking-widest mt-0.5 opacity-80">Premium Quality</span>
+                      </th>
+                      <th className="py-2.5 px-2 md:p-3 text-[11px] md:text-sm font-bold uppercase tracking-widest text-white/50 bg-[#121212]/90 text-center rounded-t-xl">
+                        Regular Suppliers
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      {
+                        label: 'LED Technology',
+                        amx: 'Ultra Brightness LED',
+                        reg: 'Cheap Generic LED',
+                        highlight: true
+                      },
+
+                      {
+                        label: 'Brightness',
+                        amx: '1000 - 1400 lumen',
+                        reg: '400 - 600 lumen'
+                      },
+                      {
+                        label: 'Lifetime',
+                        amx: '5X Greater Lifetime',
+                        reg: 'Standard Lifetime'
+                      },
+                      {
+                        label: 'Energy',
+                        amx: 'Upto 50% More Efficient',
+                        reg: 'Consumes More Energy'
+                      },
+                      {
+                        label: 'Warranty',
+                        amx: '12 Months Warranty',
+                        reg: 'No Warranty',
+                        highlight: true
+                      },
+                      {
+                        label: 'Production',
+                        amx: 'Handmade & Carefully Tested',
+                        reg: 'Basic / DIY Wiring'
+                      },
+                      {
+                        label: 'Safe / Cool to Touch',
+                        amx: true,
+                        reg: false
+                      },
+                      {
+                        label: 'Top Notch Craftsmanship',
+                        amx: true,
+                        reg: false
+                      }
+                    ].map((row, i) => {
+                      const isHighlightedRow = row.highlight;
+                      return (
+                        <tr key={i} className="border-b border-white/5 last:border-0 hover:bg-white/[0.01] transition-colors">
+                          <td className="py-2.5 px-2 md:p-3 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-text-muted">
+                            {row.label}
+                          </td>
+                          <td className={`py-2.5 px-2 md:p-3 text-center bg-primary/5 font-semibold ${isHighlightedRow ? 'text-primary' : 'text-white/95'}`}>
+                            {row.amx === true ? (
+                              <Check className="w-4 h-4 text-primary mx-auto drop-shadow-[0_0_6px_rgba(198,255,0,0.5)]" />
+                            ) : (
+                              row.amx
+                            )}
+                          </td>
+                          <td className="py-2.5 px-2 md:p-3 text-center text-white/40 bg-[#121212]/10">
+                            {row.reg === false ? (
+                              <X className="w-4 h-4 text-red-500/80 mx-auto" />
+                            ) : (
+                              row.reg
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 4: FAQs */}
+          <section id="faq" className="scroll-mt-44 border-t border-white/5 pt-4 md:pt-6 space-y-6 text-center flex flex-col items-center">
+            <div>
+              <span className="text-primary font-mono text-xs md:text-sm uppercase tracking-[0.3em] mb-3 block">FAQs</span>
+              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">Common Questions about {product.title}</h2>
+            </div>
+            {/* Expandable accordion list centered on desktop */}
+            <div className="max-w-3xl w-full text-left space-y-3.5 mx-auto">
+              {[
+                { q: 'How do I power the sign and how long is the cable?', a: 'Every sign comes with a 12V low-voltage power adapter and a 10 Feet (3 Meters) thin power cord, making it easy to plug into any standard wall outlet without visible wire clutter.' },
+                { q: 'Is it safe to leave the neon sign turned on 24/7?', a: 'Yes. Our LED neon signs are extremely energy-efficient, generate zero heat, and remain cool to the touch. They operate silently without any hum, making them completely safe for bedrooms and long-duration use.' },
+                { q: 'What is the backing material made of?', a: 'We use premium, 5mm high-grade clear acrylic backing boards cut precisely to shape. This provides a rigid, ultra-durable support structure that is clear and looks sleek on any wall.' },
+              ].map((faq, i) => {
+                const isOpen = openMainFaq === i;
+                return (
+                  <div key={i} className="rounded-xl border border-white/5 bg-white/[0.01] overflow-hidden transition-all duration-300 hover:border-white/10">
+                    <button
+                      onClick={() => setOpenMainFaq(isOpen ? null : i)}
+                      className="w-full py-3.5 px-4 md:py-4.5 md:px-5 flex items-center justify-between text-left group transition-colors"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs font-mono font-black text-primary">0{i + 1}</span>
+                        <span className="text-xs sm:text-sm font-black uppercase tracking-wide text-white group-hover:text-primary transition-colors">
+                          {faq.q}
+                        </span>
+                      </div>
+                      <motion.span
+                        animate={{ rotate: isOpen ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="text-text-muted text-xs font-bold ml-2 shrink-0"
+                      >
+                        ▼
+                      </motion.span>
+                    </button>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                        >
+                          <div className="px-4 pb-4 pt-1 sm:px-5 sm:pb-5 sm:pt-1.5 text-xs sm:text-sm text-text-muted leading-relaxed border-t border-white/[0.03]">
+                            {faq.a}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        </div>
+      </div>
       {/* Sticky Mobile Add to Cart */}
       {product.in_stock && (
         <div className="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-md border-t border-white/10 px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] lg:hidden z-50">
@@ -526,7 +778,7 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product, rela
 
       {/* You May Also Like */}
       {related.length > 0 && (
-        <section className="bg-black border-t border-white/5 pt-10 pb-32 md:py-16">
+        <section className="bg-black border-t border-white/5 pt-6 pb-20 md:pt-10 md:pb-12">
           <div className="container mx-auto px-4 lg:px-6">
             <div className="mb-8 flex items-end justify-between">
               <div>

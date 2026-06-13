@@ -3,6 +3,7 @@ const nextConfig = {
   // Prevents next/font from fetching Google Fonts at build time (hangs on restricted networks)
   optimizeFonts: true,
   images: {
+    minimumCacheTTL: 2592000, // 30 days
     remotePatterns: [
       {
         protocol: "https",

@@ -31,8 +31,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: CategoryPageProps) {
   const dbCategory = mapSlugToDbCategory(params.category);
   let categoryName;
-  if (params.category.toLowerCase() === "under-4000") {
-    categoryName = "Under 4000";
+  if (params.category.toLowerCase() === "under-4k") {
+    categoryName = "Under 4K";
   } else {
     categoryName = mapDbCategoryToLabel(dbCategory);
   }
@@ -80,25 +80,30 @@ const categoryContent: Record<string, { h1: string; h2: string; intro: string }>
     h2: 'Minimalist LED Wall Art for Modern Interiors',
     intro: 'Our aesthetic neon collection features clean lines, mood-setting phrases, and visual art that works with minimalist and modern interiors. Ideal for bedrooms, cafés, photo studios, and creative workspaces. Each sign is handcrafted with low-heat, silent LEDs and ships free across India with a 1-year warranty.',
   },
-  'love': {
-    h1: 'Love & Gift Neon Signs India',
-    h2: 'Meaningful LED Neon for Anniversaries & Birthdays',
-    intro: 'Our love and gifting neon collection is designed for moments that matter. Heart signs, romantic phrases, and personalised designs that make for unforgettable anniversary, birthday, or Valentine\'s Day gifts. Every sign is handcrafted in India, wrapped in secure packaging, and delivered free across the country.',
+  'gaming': {
+    h1: 'Gaming Neon Signs India',
+    h2: 'Transform Your Setup with LED Battle Station Art',
+    intro: 'Elevate your gaming room or streaming station with our premium gaming neon collection. Featuring handcrafted LED designs of controllers, retro arcade graphics, and glowing gaming logos. Built with energy-efficient, cool-to-touch 12V LEDs that run completely silent.',
   },
   'wings': {
     h1: 'Wings Neon Signs India',
     h2: 'Statement LED Wall Art for Bedrooms & Photo Backdrops',
     intro: 'Our wings neon collection is a statement piece for bedrooms, dressing rooms, and photography backdrops. Each design captures the elegance of wing art in glowing LED form. Handcrafted with precision, these signs are silent, cool-running, and come with a full mounting kit for DIY installation.',
   },
-  'cafe': {
-    h1: 'Café & Restaurant Neon Signs India',
-    h2: 'Professional LED Signage for Hospitality Businesses',
-    intro: 'Attract customers and define your brand identity with our café and restaurant neon collection. From coffee cup silhouettes to custom phrases, these signs are designed for commercial environments — cafés, bars, reception walls, and pop-up events. Built for continuous use with energy-efficient 12V LEDs and free shipping across India.',
+  'cafe-bar': {
+    h1: 'Café & Bar Neon Signs India',
+    h2: 'Professional LED Signage for Hospitality Businesses & Home Bars',
+    intro: 'Attract customers and define your brand identity with our café and bar neon collection. From coffee cup silhouettes to custom phrases, these signs are designed for commercial and home bar environments — cafés, bars, reception walls, and pop-up events. Built for continuous use with energy-efficient 12V LEDs and free shipping across India.',
   },
-  'under-4000': {
-    h1: 'Neon Signs Under ₹4000',
+  'under-4k': {
+    h1: 'Neon Signs Under ₹4K',
     h2: 'Premium LED Neon Art at Affordable Prices',
-    intro: 'Premium neon art does not have to cost a premium. Our under ₹4000 collection features handcrafted LED neon signs that deliver the same quality and impact as our full-price range. Free PAN-India shipping included on all orders. Browse our bestsellers and find your perfect piece within budget.',
+    intro: 'Premium neon art does not have to cost a premium. Our under ₹4K collection features handcrafted LED neon signs that deliver the same quality and impact as our full-price range. Free PAN-India shipping included on all orders. Browse our bestsellers and find your perfect piece within budget.',
+  },
+  'sports': {
+    h1: 'Sports & Fitness Neon Signs',
+    h2: 'Vibrant LED Art for Home Gyms, Studios & Sports Rooms',
+    intro: 'Fuel your motivation with our Sports & Fitness neon sign collection. Handcrafted LED signs perfect for home gyms, workout spaces, sports bars, and team fan caves. Built with cool-running, silent 12V LEDs and shipped free across India.',
   },
 };
 
@@ -108,9 +113,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   let categoryProducts;
   let categoryName;
 
-  if (params.category.toLowerCase() === "under-4000") {
+  if (params.category.toLowerCase() === "under-4k") {
     categoryProducts = await getProductsUnderPrice(4000);
-    categoryName = "Under 4000";
+    categoryName = "Under 4K";
   } else {
     categoryProducts = await getProductsByCategory(dbCategory);
     categoryName = mapDbCategoryToLabel(categoryProducts[0]?.category || dbCategory);
@@ -148,7 +153,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     return (
       <main className="min-h-screen bg-black selection:bg-primary/30 selection:text-primary">
         <Header />
-        <div className="pt-24 pb-24 container mx-auto px-4 sm:px-6">
+        <div className="pt-24 pb-24 max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="mb-6 md:mb-12">
             <span className="text-primary font-mono text-xs uppercase tracking-[0.3em] mb-4 block">
               Collection
@@ -181,7 +186,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       {itemListSchema && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       )}
-      <div className="pt-24 pb-24 container mx-auto px-4 sm:px-6">
+      <div className="pt-24 pb-24 max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="mb-6 md:mb-12">
           <span className="text-primary font-mono text-xs uppercase tracking-[0.3em] mb-4 block">
             Collection

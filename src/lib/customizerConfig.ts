@@ -13,6 +13,10 @@ export const NEON_FONTS: NeonFont[] = [
   { id: "dreamy",      name: "Dreamy",       category: "Script",      cssVar: "var(--nf-dreamy)",      fontFamily: "var(--nf-dreamy)" },
   { id: "funky",       name: "Funky",        category: "Handwritten", cssVar: "var(--nf-funky)",       fontFamily: "var(--nf-funky)" },
   { id: "modern",      name: "Modern",       category: "Modern",      cssVar: "var(--nf-modern)",      fontFamily: "var(--nf-modern)" },
+  { id: "classic",     name: "Classic",      category: "Modern",      cssVar: "var(--nf-montserrat)",  fontFamily: "var(--nf-montserrat)" },
+  { id: "outline",     name: "Outline",      category: "Display",     cssVar: "var(--nf-library3am)",  fontFamily: "var(--nf-library3am)" },
+  { id: "cyber",       name: "Cyber",        category: "Futuristic",  cssVar: "var(--nf-orbitron)",    fontFamily: "var(--nf-orbitron)" },
+  { id: "signature",   name: "Signature",    category: "Script",      cssVar: "var(--nf-msmadi)",      fontFamily: "var(--nf-msmadi)" },
 ];
 
 

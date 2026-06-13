@@ -13,14 +13,14 @@ interface CategoryThumb {
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
-  cafe:        "#FF9500",
+  "cafe-bar":  "#FF9500",
   aesthetic:   "#BF5FFF",
   love:        "#FF007A",
   wings:       "#00F0FF",
-  gaming:      "#4D7CFF",
   cars:        "#FF4500",
-  "pop-culture": "#FFE600",
-  "under-4000":"#36F4A4",
+  "anime-pop": "#FFE600",
+  "under-4k":  "#36F4A4",
+  sports:      "#FF5E00",
 };
 
 export default function CategoryThumbnailsPage() {

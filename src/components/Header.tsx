@@ -91,14 +91,14 @@ const Header = () => {
   const displayName = user?.user_metadata?.full_name?.split(" ")[0] || user?.email?.split("@")[0] || "Account";
   const navLinks = [
     { href: "/collections",           label: "Shop All",    match: "/collections",            color: "#C6FF00", bg: "rgba(198,255,0,0.12)" },
-    { href: "/collections/cafe",      label: "Cafe",        match: "/collections/cafe",       color: "#FF9500", bg: "rgba(255,149,0,0.12)" },
+    { href: "/collections/cafe-bar",  label: "CAFE/BAR",    match: "/collections/cafe-bar",   color: "#FF9500", bg: "rgba(255,149,0,0.12)" },
     { href: "/collections/aesthetic", label: "Aesthetic",   match: "/collections/aesthetic",  color: "#BF5FFF", bg: "rgba(191,95,255,0.12)" },
-    { href: "/collections/love",      label: "Love",        match: "/collections/love",       color: "#FF007A", bg: "rgba(255,0,122,0.12)" },
+    { href: "/collections/gaming",    label: "Gaming",      match: "/collections/gaming",     color: "#FF007A", bg: "rgba(255,0,122,0.12)" },
     { href: "/collections/wings",     label: "Wings",       match: "/collections/wings",      color: "#00F0FF", bg: "rgba(0,240,255,0.12)" },
-    { href: "/collections/gaming",    label: "Gaming",      match: "/collections/gaming",     color: "#4D7CFF", bg: "rgba(77,124,255,0.12)" },
-    { href: "/collections/pop-culture", label: "Pop Culture", match: "/collections/pop-culture", color: "#FFE600", bg: "rgba(255,230,0,0.2)" },
+    { href: "/collections/anime-pop",  label: "Anime/Pop",   match: "/collections/anime-pop",  color: "#FFE600", bg: "rgba(255,230,0,0.2)" },
     { href: "/collections/cars",      label: "Cars",        match: "/collections/cars",       color: "#FF4500", bg: "rgba(255,69,0,0.12)" },
-    { href: "/collections/under-4000",label: "Under 4000",  match: "/collections/under-4000", color: "#36F4A4", bg: "rgba(54,244,164,0.12)" },
+    { href: "/collections/sports",    label: "Sports",      match: "/collections/sports",     color: "#FF5E00", bg: "rgba(255,94,0,0.12)" },
+    { href: "/collections/under-4k",  label: "Under 4K",    match: "/collections/under-4k",   color: "#36F4A4", bg: "rgba(54,244,164,0.12)" },
   ];
 
 

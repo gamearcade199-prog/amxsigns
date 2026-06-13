@@ -18,6 +18,7 @@ export interface Product {
   addons?: Array<{ id: string; label: string; price: number }>;
   is_trending?: boolean;
   trending_order?: number | null;
+  display_order?: number | null;
   variants: {
     regular: { dimensions: string; price: number; original_price?: number };
     medium: { dimensions: string; price: number; original_price?: number };
@@ -112,6 +113,7 @@ export const getProductsByCategory = async (category: string): Promise<Product[]
     .from("products")
     .select("*")
     .ilike("category", category)
+    .order("display_order", { ascending: true, nullsFirst: false })
     .order("created_at", { ascending: false });
 
   if (error) {

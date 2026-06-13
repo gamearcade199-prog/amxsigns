@@ -29,14 +29,15 @@ export default function Footer() {
           <div>
             <h4 className="text-xs font-black uppercase tracking-widest mb-6">Collections</h4>
             <ul className="space-y-3 text-sm text-text-muted">
-              <li><Link href="/collections/gaming" className="hover:text-primary transition-colors">Gaming Neon Signs</Link></li>
+              <li><Link href="/collections/anime-pop" className="hover:text-primary transition-colors">Anime & Pop Culture Neon Signs</Link></li>
               <li><Link href="/collections/cars" className="hover:text-primary transition-colors">Car & Automotive Neon Signs</Link></li>
               <li><Link href="/collections/f1" className="hover:text-primary transition-colors">F1 Racing Neon Signs</Link></li>
               <li><Link href="/collections/anime" className="hover:text-primary transition-colors">Anime Neon Signs</Link></li>
               <li><Link href="/collections/aesthetic" className="hover:text-primary transition-colors">Aesthetic Neon Signs</Link></li>
-              <li><Link href="/collections/love" className="hover:text-primary transition-colors">Love & Gift Neon Signs</Link></li>
-              <li><Link href="/collections/cafe" className="hover:text-primary transition-colors">Café & Restaurant Signs</Link></li>
-              <li><Link href="/collections/under-4000" className="hover:text-primary transition-colors">Neon Signs Under ₹4000</Link></li>
+              <li><Link href="/collections/gaming" className="hover:text-primary transition-colors">Gaming Neon Signs</Link></li>
+              <li><Link href="/collections/sports" className="hover:text-primary transition-colors">Sports & Gym Neon Signs</Link></li>
+              <li><Link href="/collections/cafe-bar" className="hover:text-primary transition-colors">CAFE/BAR Neon Signs</Link></li>
+              <li><Link href="/collections/under-4k" className="hover:text-primary transition-colors">Neon Signs Under ₹4K</Link></li>
             </ul>
           </div>
 

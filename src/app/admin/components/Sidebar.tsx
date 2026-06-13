@@ -21,7 +21,7 @@ const menuItems = [
   { icon: LayoutDashboard, label: 'Overview',    href: '/admin' },
   { icon: ShoppingBag,     label: 'Orders',       href: '/admin/orders' },
   { icon: Package,         label: 'Products',     href: '/admin/products' },
-  { icon: TrendingUp,      label: 'Trending',     href: '/admin/trending' },
+  { icon: TrendingUp,      label: 'Positions',    href: '/admin/trending' },
   { icon: ImageIcon,       label: 'Categories',   href: '/admin/categories' },
   { icon: TicketPercent,   label: 'Coupons',      href: '/admin/coupons' },
 ]

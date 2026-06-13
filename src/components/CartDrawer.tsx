@@ -402,12 +402,12 @@ export default function CartDrawer() {
                                 value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
                                 placeholder={isContactValid() ? "Have a promo code?" : "Enter email & phone to use promo"}
                                 disabled={!isContactValid() || couponLoading}
-                                className="flex-1 bg-transparent border-none px-3 py-2 text-sm outline-none transition-colors placeholder:text-white/30 disabled:opacity-50 font-mono uppercase"
+                                className="flex-1 min-w-0 bg-transparent border-none px-3 py-2 text-sm outline-none transition-colors placeholder:text-white/30 disabled:opacity-50 font-mono uppercase"
                               />
                               <button 
                                 onClick={applyCoupon} 
                                 disabled={couponLoading || !couponInput || !isContactValid()}
-                                className="px-5 py-2 bg-primary/10 border border-primary/20 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-primary/20 transition-colors disabled:opacity-50 disabled:bg-white/5 disabled:border-transparent text-primary disabled:text-white/50"
+                                className="shrink-0 px-5 py-2 bg-primary/10 border border-primary/20 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-primary/20 transition-colors disabled:opacity-50 disabled:bg-white/5 disabled:border-transparent text-primary disabled:text-white/50"
                               >
                                 {couponLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin mx-auto" /> : 'Apply'}
                               </button>

@@ -5,13 +5,14 @@ export type CategoryConfig = {
 };
 
 export const CATEGORY_CONFIG: CategoryConfig[] = [
-  { label: "Cafe", slug: "cafe", dbValue: "Cafe" },
+  { label: "CAFE/BAR", slug: "cafe-bar", dbValue: "CAFE/BAR" },
   { label: "Wings", slug: "wings", dbValue: "Wings" },
   { label: "Cars", slug: "cars", dbValue: "Cars" },
   { label: "Aesthetic", slug: "aesthetic", dbValue: "Aesthetic" },
-  { label: "Love", slug: "love", dbValue: "Love" },
-  { label: "Anime/Pop", slug: "anime-pop", dbValue: "Anime/Pop" },
-  { label: "Under 4000", slug: "under-4000", dbValue: "Under 4000" },
+  { label: "Gaming", slug: "gaming", dbValue: "Gaming" },
+  { label: "Anime/Pop", slug: "anime-pop", dbValue: "Pop Culture" },
+  { label: "Under 4K", slug: "under-4k", dbValue: "Under 4K" },
+  { label: "Sports", slug: "sports", dbValue: "Sports" },
 ];
 
 export const CATEGORY_BY_SLUG = new Map(

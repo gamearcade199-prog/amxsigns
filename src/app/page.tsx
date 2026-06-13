@@ -45,13 +45,14 @@ export default async function Home() {
 
   const categories = [
     { title: "Shop All",   image: categoryThumbs["shop-all"],   href: "/collections" },
-    { title: "Cafe",        image: categoryThumbs["cafe"],        href: "/collections/cafe" },
+    { title: "CAFE/BAR",    image: categoryThumbs["cafe-bar"],    href: "/collections/cafe-bar" },
     { title: "Aesthetic",   image: categoryThumbs["aesthetic"],   href: "/collections/aesthetic" },
-    { title: "Love",        image: categoryThumbs["love"],        href: "/collections/love" },
+    { title: "Gaming",      image: categoryThumbs["gaming"],      href: "/collections/gaming" },
     { title: "Wings",       image: categoryThumbs["wings"],       href: "/collections/wings" },
     { title: "Anime/Pop",   image: categoryThumbs["anime-pop"] ?? categoryThumbs["pop-culture"], href: "/collections/anime-pop" },
     { title: "Cars",        image: categoryThumbs["cars"],        href: "/collections/cars" },
-    { title: "Under 4000",  image: categoryThumbs["under-4000"],  href: "/collections/under-4000" },
+    { title: "Sports",      image: categoryThumbs["sports"],      href: "/collections/sports" },
+    { title: "Under 4K",    image: categoryThumbs["under-4k"],    href: "/collections/under-4k" },
     { title: "Bestsellers", image: categoryThumbs["bestsellers"] ?? trending[0]?.image_url, href: "/collections" },
   ];
 
@@ -109,7 +110,7 @@ export default async function Home() {
 
       {/* Category Pulse — dynamic counts */}
       <section className="py-6 border-b border-white/5" aria-labelledby="category-heading">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-[1200px] mx-auto px-6">
           <div className="mb-6">
             <span className="text-primary font-mono text-xs uppercase tracking-[0.3em] mb-3 block">Explore</span>
             <h2 id="category-heading" className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
@@ -123,16 +124,18 @@ export default async function Home() {
             ))}
           </div>
 
-          <div className="hidden md:grid grid-cols-5 gap-6">
+          <div className="hidden md:flex flex-wrap justify-center gap-6">
             {categories.map((cat, i) => (
-              <CategoryCard key={i} cat={cat} useTransition={true} />
+              <div key={i} className="w-[calc(20%-19.2px)] shrink-0">
+                <CategoryCard cat={cat} useTransition={true} />
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Trending Products */}
-      <section className="py-10 md:py-12 container mx-auto px-4 sm:px-6" aria-labelledby="trending-heading">
+      <section className="py-10 md:py-12 max-w-[1200px] mx-auto px-4 sm:px-6" aria-labelledby="trending-heading">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-10 gap-6">
           <div>
             <span className="text-primary font-mono text-xs uppercase tracking-[0.3em] mb-4 block">Hottest Picks</span>

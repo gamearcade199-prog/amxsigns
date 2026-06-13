@@ -52,12 +52,12 @@ const cityDetails: Record<string, { deliveryDays: string; landmarks: string }> =
 };
 
 const popularCategories = [
-  { label: "Gaming Neon Signs", href: "/collections/gaming" },
+  { label: "Anime & Pop Culture Signs", href: "/collections/anime-pop" },
   { label: "Car Neon Signs",    href: "/collections/cars" },
   { label: "F1 Racing Signs",  href: "/collections/f1" },
   { label: "Anime Neon Signs", href: "/collections/anime" },
   { label: "Aesthetic Signs",  href: "/collections/aesthetic" },
-  { label: "Under ₹4000",      href: "/collections/under-4000" },
+  { label: "Under ₹4K",      href: "/collections/under-4k" },
 ];
 
 export default async function CityPage({ params }: CityPageProps) {

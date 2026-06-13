@@ -76,7 +76,14 @@ export default function CollectionsPage() {
     if (sortBy === "Price: Low to High")      result.sort((a, b) => a.price - b.price);
     else if (sortBy === "Price: High to Low") result.sort((a, b) => b.price - a.price);
     else if (sortBy === "Alphabetical")       result.sort((a, b) => a.title.localeCompare(b.title));
-    else result.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
+    else {
+      result.sort((a, b) => {
+        const orderA = a.display_order ?? 9999;
+        const orderB = b.display_order ?? 9999;
+        if (orderA !== orderB) return orderA - orderB;
+        return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime();
+      });
+    }
     
     return result;
   }, [searchQuery, selectedCategory, sortBy, products]);
@@ -118,7 +125,7 @@ export default function CollectionsPage() {
   return (
     <main className="min-h-screen bg-black selection:bg-primary/30 selection:text-primary">
       <Header />
-      <div className="pt-24 pb-24 container mx-auto px-4 sm:px-6">
+      <div className="pt-24 pb-24 max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="mb-6 md:mb-12">
           <span className="text-primary font-mono text-xs uppercase tracking-[0.3em] mb-4 block">Catalogue</span>
           <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">All Products</h1>
